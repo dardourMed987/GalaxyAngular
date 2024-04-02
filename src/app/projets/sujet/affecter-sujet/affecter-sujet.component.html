@@ -1,0 +1,121 @@
+<div class="col-12">
+    <div class="card">
+  
+      <p-table #dt1 [value]="utilisateurs" dataKey="id" [rows]="10"  [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true" [globalFilterFields]="['firstName','lastName','username']" responsiveLayout="scroll">
+        <ng-template pTemplate="caption">
+          <div class="flex justify-content-between flex-column sm:flex-row">
+            <button pButton label="Clear" class="p-button-outlined mb-2" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+            <span class="p-input-icon-left mb-2">
+              <i class="pi pi-search"></i>
+              <input pInputText type="text" #filter (input)="onGlobalFilter(dt1, $event)" placeholder="Search Keyword" class="w-full"/>
+            </span>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Photo de profil
+              </div>
+            </th>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Nom
+                <p-columnFilter type="text" field="firstName" display="menu" placeholder="Recherche par nom"></p-columnFilter>
+              </div>
+            </th>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Prénom
+                <p-columnFilter type="text" field="lastName" display="menu" placeholder="Recherche par prénom"></p-columnFilter>
+              </div>
+            </th>
+            <th>Date Debut</th>
+            <th>Date Fin</th>
+            <th>
+                Affecter
+            </th>
+            
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-utilisateur>
+          <tr>
+            <td>
+              <span class="image-text ml-2"><img [src]="'https://robohash.org/' + utilisateur.userId" width="50" alt=""></span>
+             
+            </td>
+            <td>
+              
+              {{utilisateur.firstName}}
+              
+            </td>
+            <td>
+              {{utilisateur.lastName}}
+              
+            </td>
+            <td><span *ngIf="map1.get(utilisateur.userId)!=null">{{map1.get(utilisateur.userId).date_debut | date:"dd/MM/yyyy"}}</span></td>
+            <td><span *ngIf="map1.get(utilisateur.userId)!=null">{{map1.get(utilisateur.userId).date_fin | date:"dd/MM/yyyy"}} <p-button  *ngIf="map1.get(utilisateur.userId).date_fin!=null" (click)="modifierDateFin(utilisateur)" icon="pi pi-pencil"></p-button></span></td>
+            <td>
+                <div class="form-check form-switch"><input class="form-check-input" type="checkbox"
+                    id="flexSwitchCheckDefault" (change)="affectOrNoSujetToUser(utilisateur,$event)"
+                    [checked]="verifierUserDansLaListe(utilisateur.userId)" #checkBoxId>
+
+            </div>
+            </td>
+           
+          </tr>
+        </ng-template>
+        </p-table>
+    </div>
+  </div>
+
+  <p-dialog header="Affectation d'un sujet" [(visible)]="visible" [modal]="true" [style]="{ 'width': '50vw', 'height': '35vw' }" [draggable]="false" [resizable]="false" (onHide)="onDialogHide()">
+  
+    
+    <div class="card">
+      <div class="field">
+        <table style="width: 100%;">
+          <tr>
+            <td>
+              <span>Date de début :</span>
+              <p-calendar [(ngModel)]="dateDebut" [dateFormat]="'dd/mm/yy'" [minDate]="minDate" [showIcon]="true" (ngModelChange)="chargerFinDate()"></p-calendar>
+            </td>
+            <td>
+              <span>Date de Fin :</span>
+              <p-calendar [(ngModel)]="datefin" disabled="true" [dateFormat]="'dd/mm/yy'"></p-calendar>
+            </td>
+            <td style="text-align: right;">
+              <div class="my-2">
+                <p-button (click)="validerAffectation()" label="Affecter" [rounded]="true" severity="info"></p-button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    
+       
+  </p-dialog>
+
+
+  <p-dialog header="Modification Date Fin" [(visible)]="visibleModification" [modal]="true" [style]="{ 'width': '50vw', 'height': '35vw' }" [draggable]="false" [resizable]="false" (onHide)="onDialogHide()">
+  
+    
+    <div class="card">
+      <div class="field">
+        <div class="d-flex justify-content-between align-items-center">
+          Date de fin : <p-calendar [dateFormat]="'dd/mm/yy'" [(ngModel)]="dateFinModif" [minDate]="minDate" [showIcon]="true" ></p-calendar>
+
+          
+          <div style="text-align: right;">
+            <div class="my-2">
+              <p-button (click)="validerModification()"  label="Valider" [rounded]="true" severity="info"></p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+       
+  </p-dialog>

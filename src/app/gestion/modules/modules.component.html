@@ -1,0 +1,32 @@
+<section style="background-color: #eee;">
+  <button class="btn btn-primary float-end me-5" (click)="ajouterModule()">Ajouter un module</button>
+  <div id="etus" class="text-center container py-5">
+    <h1><strong>Modules</strong></h1>
+
+
+    <div class="row">
+      <div class="col-md-3 my-3" *ngFor="let module of listeModule | async">
+        <div class="card">
+          <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+            <div class="mask">
+              <div class="d-flex justify-content-start align-items-end h-100">
+                <h5><span class="badge bg-success ms-2">{{module.id}}</span></h5>
+              </div>
+            </div>
+            <div class="hover-overlay">
+              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h2 class="card-title mb-3">{{module.moduleName}}</h2>
+            <h6 class="mb-3" *ngFor="let formation of module.formations">{{formation.formationName}}</h6>
+
+            <button type="button" class="btn btn-warning me-1" (click)="modifierModule(module.id)">Modifier</button>
+            <button type="button" class="btn btn-danger" (click)="supprimerModule(module.id)">Supprimer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

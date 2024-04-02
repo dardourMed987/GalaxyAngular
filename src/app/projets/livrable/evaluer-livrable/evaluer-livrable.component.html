@@ -1,0 +1,33 @@
+
+
+       
+        <div class="card p-fluid">
+        <h5>Évaluation du livrable</h5>
+        <p-accordion>
+            <p-accordionTab *ngFor="let c of critereEvaluation; let first = first" header="{{c.critere.nomCritere}}" [selected]="first" class="line-height-3 m-0">
+                <div class="field">
+                <h5>Note </h5>
+				<p-rating id="note" [(ngModel)]="c.note" [cancel]="false"></p-rating>
+                </div>
+                <div class="field">
+                <h5>Commentaire </h5>
+                <textarea rows="5" cols="100" pInputTextarea [(ngModel)]="c.commentaire"></textarea>
+                </div>
+            </p-accordionTab>
+            <p-accordionTab  header="Évaluation générale"  class="line-height-3 m-0">
+                <div class="field">
+                <h5>Note générale </h5>
+				<p-rating id="note" [(ngModel)]="noteGenerale" [cancel]="false"></p-rating>
+                </div>
+                <div class="field">
+                <h5>Commentaire générale </h5>
+                <textarea rows="5" cols="100" pInputTextarea [(ngModel)]="commentairegenerale"></textarea>
+                </div>
+            </p-accordionTab>
+        </p-accordion>
+        
+        
+        <button pButton pRipple label="Enregistrer" (click)="validerLeFormulaire()"></button>
+        
+        </div>
+

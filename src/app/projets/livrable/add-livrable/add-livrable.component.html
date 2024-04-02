@@ -1,0 +1,73 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card p-fluid">
+			<h3>NOUVEAU LIVRABLE</h3>
+      <form [formGroup]="livrableForm" (ngSubmit)="saveLivrable()">
+			<div class="field">
+				<label htmlFor="title">Titre </label>
+				<input pInputText id="title" type="text" formControlName="title" />
+        <span class="text-danger" *ngIf="livrableForm.controls['title'].touched
+                                && livrableForm.controls['title'].errors
+                                && livrableForm.controls['title'].errors!['required']">
+                            Le champ titre est obligatoire
+          </span>
+			</div>
+			<div class="field">
+				<label htmlFor="operationDate">Date d'ajout</label>
+				<input pInputText id="operationDate" type="date" formControlName="operationDate" />
+        <span class="text-danger" *ngIf="livrableForm.controls['operationDate'].touched
+                              && livrableForm.controls['operationDate'].errors
+                              && livrableForm.controls['operationDate'].errors!['required']">
+                            Le champ date d'ajout est obligatoire
+        </span>
+			</div>
+			<div class="field">
+				<label htmlFor="timeConstraint">Durée en jours </label>
+				<input pInputText id="timeConstraint" type="number" formControlName="timeConstraint" />
+        <span class="text-danger" *ngIf="livrableForm.controls['timeConstraint'].touched
+                              && livrableForm.controls['timeConstraint'].errors
+                              && livrableForm.controls['timeConstraint'].errors!['required']">
+                            Le champ durée est obligatoire
+          </span>
+			</div>
+      <div class="field">
+				<label htmlFor="level">Niveau</label>
+        <p-dropdown formControlName="level" [options]="levelType"  placeholder="Choisir un..."></p-dropdown>
+        <span class="text-danger" *ngIf="livrableForm.controls['level'].touched
+                        && livrableForm.controls['level'].errors
+                        && livrableForm.controls['level'].errors!['required']">
+                            Le champ niveau est obligatoire
+          </span>
+			</div>
+            <div class="field">
+				<label htmlFor="title">Repository </label>
+				<input pInputText id="repoName" type="text" formControlName="repoName" />
+        <span class="text-danger" *ngIf="livrableForm.controls['repoName'].touched
+                                && livrableForm.controls['repoName'].errors
+                                && livrableForm.controls['repoName'].errors!['required']">
+                            Le champ Repository est obligatoire
+          </span>
+			</div>
+            <div class="field">
+				<label htmlFor="gitUrl">URL Git </label>
+				<input pInputText id="gitUrl" type="text" formControlName="gitUrl" />
+        <span class="text-danger" *ngIf="livrableForm.controls['gitUrl'].touched
+                                && livrableForm.controls['gitUrl'].errors
+                                && livrableForm.controls['gitUrl'].errors!['required']">
+                            Le champ URL Git est obligatoire
+          </span>
+		</div>
+            <div class="field">
+				<label htmlFor="sujet">Sujet </label>
+        <p-dropdown formControlName="sujet" [options]="sujetUser" optionLabel="title"  placeholder="Choisir un..."></p-dropdown>
+        <span class="text-danger" *ngIf="livrableForm.controls['sujet'].touched
+                        && livrableForm.controls['sujet'].errors
+                        && livrableForm.controls['sujet'].errors!['required']">
+                            Le champ Sujet est obligatoire
+          </span>
+			</div>
+            <button pButton pRipple [disabled]="!livrableForm.valid" label="Ajouter"></button>
+        </form>
+        </div>
+        </div>
+        </div>

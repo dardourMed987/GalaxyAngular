@@ -1,0 +1,101 @@
+<div class="col-12">
+    <div class="card">
+  
+      
+      <h3>Gestion des clients</h3>
+              <p-toolbar styleClass="mb-4">
+                  <ng-template pTemplate="left">
+                      <div class="my-2">
+                          <button pButton pRipple label="Ajouter un client" icon="pi pi-plus" class="p-button-success mr-2" (click)="goToAddClientPage()" ></button>
+                      </div>
+                  </ng-template>
+              </p-toolbar>
+  
+  
+  
+      <p-table #dt1 [value]="clients" dataKey="id" [rows]="10"  [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"  responsiveLayout="scroll">
+        
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Nom
+                
+              </div>
+            </th>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Prénom
+                
+              </div>
+            </th>
+            
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Raison sociale
+                <p-columnFilter type="text" field="raisonSociale" display="menu" placeholder="Recherche par raison sociale"></p-columnFilter>
+              </div>
+            </th>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Email
+                <p-columnFilter type="text" field="email" display="menu" placeholder="Recherche par Email"></p-columnFilter>
+              </div>
+            </th>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Historique d'envoi des livrables
+              </div>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-client>
+          <tr>
+            <td>
+              
+              {{client.nom}}
+              
+            </td>
+            <td>
+              {{client.prenom}}
+              
+            </td>
+            <td>
+              {{client.raisonSociale}} 
+            </td>
+            <td>
+              {{client.email}}
+            </td>
+            <td>
+              <p-button  (click)="afficherHistoriqueEnvoi(client)" label="Historique d'envoi des livrables" [rounded]="true" severity="info"></p-button>
+            </td>
+           
+          </tr>
+        </ng-template>
+       
+       
+        </p-table>
+    </div>
+  </div>
+
+  <p-dialog header="Historique d'envoi des livrables " [(visible)]="affichermodal" [style]="{width: '60vw'}">
+    <div class="card">
+      <p-table [value]="historiqueLivrable" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Nom livrable</th>
+                <th>stagiaire</th>
+                <th>Date d'envoi</th>
+                
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-hl>
+            <tr>
+                <td>{{hl.livrable.repoName}}</td>
+                <td><span *ngFor="let u of hl.livrable.utilisateurs">{{u.firstName}} {{u.lastName}}</span></td>
+                <td>{{hl.dateenvoie | date:'dd/MM/yyyy'}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </div>
+    </p-dialog>

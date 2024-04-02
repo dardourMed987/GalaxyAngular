@@ -1,0 +1,99 @@
+<section class="h-100 bg-dark">
+  <form [formGroup]="moduleForm">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card card-registration my-4">
+            <div class="row g-0">
+              <div class="col-xl-6 d-none d-xl-block">
+                <img src="http://lms.intiformation.fr/pluginfile.php/63/course/overviewfiles/Slider_3.jpg"
+                  alt="photo formation" class="img-fluid"
+                  style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; width: 100%; height: 100%;" />
+              </div>
+
+              <div class="col-xl-6">
+                <div class="card-body p-md-5 text-black">
+                  <h3 class="mb-5 text-uppercase">Nouveau module</h3>
+
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <span class="text-danger" *ngIf="moduleForm.controls['moduleName'].touched
+                            && moduleForm.controls['moduleName'].errors
+                            && moduleForm.controls['moduleName'].errors!['required']">
+                        module name is Required
+                      </span>
+                      <input type="text" id="moduleName" class="form-control form-control-lg"
+                        formControlName="moduleName" />
+                      <label class="form-label" for="moduleName">Nom du module</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <input type="date" id="operationDate" class="form-control form-control-lg"
+                        formControlName="operationDate" />
+                      <label class="form-label" for="operationDate">Date</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <input type="text" id="imageUrl" class="form-control form-control-lg"
+                        formControlName="imageUrl" />
+                      <label class="form-label" for="imageUrl">Url de l'image</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <select class="form-control" type="number" formControlName="formations" multiple>
+                        <option *ngFor="let formation of listeFormation" [ngValue]="formation">
+                          {{formation.formationName}}</option>
+                      </select>
+                      <label class="form-label" for="formations">Formations</label>
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <div formArrayName="documents" class="form-outline mb-4">
+                      <div *ngFor="let document of documents.controls; let i = index" [formGroupName]="i">
+                        <div class="row">
+                          <div class="form-outline mb-4">
+                            <input formControlName="documentName" type="text" class="form-control form-control-lg" />
+                            <label class="form-label" for="documentName">Nom du document {{i+1}}</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-outline mb-4">
+                            <input formControlName="operationDate" type="date" class="form-control form-control-lg" />
+                            <label class="form-label" for="operationDate">Date</label>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-outline mb-4">
+                            <input formControlName="documentUrl" type="text" class="form-control form-control-lg" />
+                            <label class="form-label" for="documentUrl">Url du document {{i+1}}</label>
+                          </div>
+                        </div>
+                        <button class="btn btn-danger btn-lg ms-2" (click)="supprimerDocument(i)">Supprimer document
+                          {{i+1}}</button>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg ms-2" (click)="ajouterDocument()">Ajouter un document</button>
+                  </div>
+
+                  <button type="reset" class="btn btn-danger btn-lg ms-2">Annuler</button>
+                  <button [disabled]="!moduleForm.valid" class="btn btn-success btn-lg ms-2"
+                    (click)="saveModule()">Ajouter</button>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</section>

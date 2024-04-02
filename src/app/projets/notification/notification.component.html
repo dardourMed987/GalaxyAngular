@@ -1,0 +1,117 @@
+<div class="col-12">
+  <div class="card">
+    <h3>Traitement des notifications</h3>
+    <p-table #dt1 [value]="notifications" dataKey="id" [rows]="10"  [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"  responsiveLayout="scroll">
+      
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="min-width: 8rem">
+            <div class="flex justify-content-between align-items-center">
+              Titre 
+            </div>
+          </th>
+          <th style="min-width: 8rem">
+            <div class="flex justify-content-between align-items-center">
+              Type
+            </div>
+          </th>
+          <th style="min-width: 8rem">
+            <div class="flex justify-content-between align-items-center">
+              Document
+            </div>
+          </th>
+          <th style="min-width: 8rem">
+            <div class="flex justify-content-between align-items-center">
+              Formateur
+            </div>
+          </th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-notif>
+        <tr>
+          <td>
+            
+            <span *ngIf="notif.sujet !== null; else notifElse">{{notif.sujet.title}}</span>
+            <ng-template #notifElse>
+                <span>{{notif.livrable.title}}</span>
+            </ng-template>
+            
+            
+          </td>
+          <td>
+            {{notif.type}}
+            
+          </td>
+          <td>
+            <span *ngIf="notif.sujet!=null;else liv">Sujet</span>
+            <ng-template #liv>
+              <span>Livrable</span>
+          </ng-template>
+          </td>
+          <td>
+            {{notif.utilisateur.firstName}}
+          </td>
+          <td>
+            <ng-template [ngIf]="notif.type === 'suppression'">
+              <p-button label="Valider la Suppression" [rounded]="true" severity="danger" (click)="validerSuppression(notif)"></p-button>
+            </ng-template>
+            <ng-template [ngIf]="notif.type === 'ajout'">
+              <p-button label="Valider l'ajout" [rounded]="true" severity="success" (click)="validerLajout(notif)"></p-button>
+            </ng-template>
+            <!--suppression d'un livrable -->
+            <ng-template [ngIf]="notif.type === 'suppression '">
+              <p-button label="Valider la Suppression" [rounded]="true" severity="danger" (click)="validerSuppressionLivrable(notif)"></p-button>
+            </ng-template>
+          </td>
+          <td>
+            <ng-template [ngIf]="notif.type === 'suppression'">
+              <p-button  label="Rejeter la Suppression" [rounded]="true" severity="info"  (click)="RejeterSuppression(notif)"></p-button>
+            </ng-template>
+            <ng-template [ngIf]="notif.type === 'ajout'">
+              <p-button  label="Annuler l'ajout" [rounded]="true" severity="secondary" (click)="AnnulerLajout(notif)"></p-button>
+            </ng-template>
+            <ng-template [ngIf]="notif.type === 'suppression '">
+              <p-button  label="Rejeter la Suppression" [rounded]="true" severity="info"  (click)="RejeterSuppressionLivrable(notif)"></p-button>
+            </ng-template>
+            <!--<p-button  *ngIf="notif.type=='suppression'; else refuserAjout" label="Rejeter la Suppression" [rounded]="true" severity="info"  (click)="RejeterSuppression(notif)"></p-button>
+            <ng-template #refuserAjout>
+              <p-button  label="Annuler l'ajout" [rounded]="true" severity="secondary" (click)="AnnulerLajout(notif)"></p-button>
+            </ng-template>-->
+          </td>
+          <td>
+            <ng-template [ngIf]="notif.type === 'suppression'">
+              <p-button label="Afficher la Raison de la Suppression" [rounded]="true" severity="help"  (click)="openModal(modalContent,notif.message)"></p-button>
+            </ng-template>
+            <ng-template [ngIf]="notif.type === 'ajout'">
+              <p-button label="Consulter le Sujet" [rounded]="true" severity="help"  (click)="consulterSujet(notif.sujet)"></p-button>
+            </ng-template>
+            <ng-template [ngIf]="notif.type === 'suppression '">
+              <p-button label="Afficher la Raison de la Suppression" [rounded]="true" severity="help"  (click)="openModal(modalContent,notif.message)"></p-button>
+            </ng-template>
+           <!--<p-button label="Afficher la Raison de la Suppression" *ngIf="notif.type=='suppression'; else consulterDoc" [rounded]="true" severity="help"  (click)="openModal(modalContent,notif.message)"></p-button>
+            <ng-template #consulterDoc>
+              <p-button label="Consulter le Sujet" [rounded]="true" severity="help"  (click)="consulterSujet(notif.sujet)"></p-button>
+            </ng-template>--> 
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8">No notification found.</td>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="loadingbody">
+        <tr>
+          <td colspan="8">Loading notifications. Please wait.</td>
+        </tr>
+      </ng-template>
+      </p-table>
+  </div>
+</div>
+<p-dialog header="La raison de la suppression" [(visible)]="visible" [style]="{width: '25vw'}">
+  <p>{{message}}</p>
+</p-dialog>

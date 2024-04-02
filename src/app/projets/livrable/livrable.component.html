@@ -1,0 +1,269 @@
+<div class="col-12">
+  <div class="card">
+    <h3>Gestion des livrables</h3>
+            <p-toolbar *ngIf="authService.roles.includes('APPRENANT')" styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button  (click)="goToPageAddLivrable()" pButton pRipple label="Ajouter un livrable" icon="pi pi-plus" class="p-button-success mr-2"  ></button>
+                    </div>
+                </ng-template>
+            </p-toolbar>
+    <p-table *ngIf="authService.roles.includes('ADMIN') || authService.roles.includes('FORMATEUR')" #dt1 [value]="livrables" dataKey="id" [rows]="10"  [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"  responsiveLayout="scroll">
+      
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="min-width: 8rem">
+            <div class="flex justify-content-between align-items-center">
+              Les repositories
+            </div>
+          </th>
+          <th style="min-width: 8rem">
+            <div class="flex justify-content-between align-items-center">
+              Sujet
+            </div>
+          </th>
+          <th></th>
+          
+          <th *ngIf="authService.roles.includes('FORMATEUR')"></th>
+        </tr>
+      </ng-template>
+      <ng-template  pTemplate="body" let-l>
+        <tr>
+          <td>
+            
+            <p *ngFor="let u of l.utilisateurs"><a href="{{l.gitUrl}}"
+              target="_blank">{{u.username}}/{{l.repoName}} </a></p>
+            
+          </td>
+          <td>
+            <div *ngIf="l.sujet!=null">{{l.sujet.title}}</div>
+            
+          </td>
+          <td>
+            <p-button *ngIf="l.evaluationLivrable==null" label="Évaluer le livrable" [rounded]="true" severity="Warning"  (click)="evaluerLivrable(l)"></p-button>
+            <p-button *ngIf="l.evaluationLivrable!=null" label="Rapport Éval" [rounded]="true" severity="Warning" (click)="rapportEvaluation(l)" ></p-button>
+          </td>
+          <td *ngIf="authService.roles.includes('FORMATEUR')">
+            <button [disabled]="afficherButton(l)"  pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteLivrable(l)"  ></button>
+          </td>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8">No Livrable found.</td>
+        </tr>
+
+      </ng-template>
+      </p-table>
+      <p-table *ngIf="authService.roles.includes('APPRENANT')" #dt1 [value]="livrables2" dataKey="id" [rows]="10"  [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"  responsiveLayout="scroll">
+      
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Les repositories
+              </div>
+            </th>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Sujet
+              </div>
+            </th>
+          
+            
+          </tr>
+        </ng-template>
+        <ng-template  pTemplate="body" let-l>
+          <tr>
+            <td>
+              
+              <p *ngFor="let u of l.utilisateurs"><a href="{{l.gitUrl}}"
+                target="_blank">{{u.username}}/{{l.repoName}} </a></p>
+              
+            </td>
+            <td>
+              <div *ngIf="l.sujet!=null">{{l.sujet.title}}</div>
+              
+            </td>
+            
+          </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No Livrable found.</td>
+          </tr>
+  
+        </ng-template>
+        </p-table>
+  </div>
+</div>
+<p-dialog header="La liste des avis pour le livrable" [(visible)]="visible" [style]="{width: '50vw'}"  [draggable]="false" [resizable]="false">
+  <div class="col-12">
+    <div class="card">
+      <h3>Les avis</h3>
+      <p-table  #dt1 [value]="avis" dataKey="id" [rows]="3"  [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"  responsiveLayout="scroll">
+        
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Formateur
+              </div>
+            </th>
+            <th style="min-width: 8rem">
+              <div class="flex justify-content-between align-items-center">
+                Avis
+              </div>
+            </th>
+            <th>
+              <div class="flex justify-content-between align-items-center">
+                Date Avis
+              </div>
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template  pTemplate="body" let-a>
+          <tr>
+            <td>
+              {{a.utilisateur.firstName}}
+            </td>
+            <td>
+              {{a.texteAvis}}
+            </td>
+            <td>
+              <span *ngIf="a.dateAvis!=null">{{a.dateAvis | date:'dd/MM/yyyy'}} </span>
+            </td>
+            <td>
+              <button *ngIf="a.utilisateur.username==connectedUser" pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteAvis(a.id)" ></button>
+            </td>
+          </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No Livrable found.</td>
+          </tr>
+  
+        </ng-template>
+        </p-table>
+    </div>
+  </div>
+</p-dialog>
+<p-dialog header="Ajouter un avis" [(visible)]="visibleAjout" [style]="{width: '30vw'}">
+<div class="card">
+  <h6>Avis:</h6>
+  <div class="field">
+    <div class="d-flex justify-content-between align-items-center">
+      <textarea rows="5" cols="50" placeholder="avis" [(ngModel)]="avisAjout.texteAvis" pInputTextarea></textarea>
+      
+
+      <div style="text-align: right;">
+        <div class="my-2">
+          <p-button  (click)="validerAjout()" label="Envoyer" [rounded]="true" severity="info"></p-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</p-dialog>
+
+<p-dialog header="Rapport d'évaluation du livrable" [(visible)]="visibleRapport" (onHide)="onDialogHide()" [style]="{width: '60vw'}">
+  <div *ngIf="livrableModal!=null" class="card">
+    <p-fieldset legend="Informations sur le livrable" [toggleable]="false" class="line-height-3 m-0">
+      <h6>Livrable : <i><strong>{{livrableModal.title}}</strong></i></h6> 
+      <h6>Date d'évaluation : <i><strong>{{livrableModal.evaluationLivrable.dateAjout}}</strong></i></h6> 
+      <h6>Évaluateur : <i><strong>{{livrableModal.evaluationLivrable.utilisateur.username}}</strong></i></h6> 
+      <h6>L'apprenant : <i><strong><span *ngFor="let u of livrableModal.utilisateurs">{{u.firstName}} {{u.lastName}}</span></strong></i></h6> 
+      <h6>Sujet : <i><strong>{{livrableModal.sujet.title}}</strong></i></h6> 
+  </p-fieldset>
+  <br>
+  <p-fieldset legend="Rapport d'évaluation point par point" [toggleable]="false" class="line-height-3 m-0">
+    <p-table [value]="livrableModal.evaluationLivrable.critereEvaluations" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Critère</th>
+              <th>Note</th>
+              <th>Commentaire</th>
+              
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-ce>
+          <tr>
+              <td>{{ce.critere.nomCritere}}</td>
+              <td><p-rating [(ngModel)]="ce.note" [readonly]="true" [cancel]="false"></p-rating></td>
+              <td>{{ce.commentaire}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+  </p-fieldset>
+
+  <br>
+  <p-fieldset legend="Commentaire général" [toggleable]="false" class="line-height-3 m-0">
+    <p-table [value]="[{}]" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Note</th>
+              <th>Commentaire</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData>
+          <tr>
+              <td><p-rating [(ngModel)]="livrableModal.evaluationLivrable.note" [readonly]="true" [cancel]="false"></p-rating></td>
+              <td>{{livrableModal.evaluationLivrable.commentaire}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+  </p-fieldset>
+  <div *ngIf="showFieldsetClient==false" style="margin: 15px;text-align: center;" >
+  <p-button   label="Modifier l'évaluation" [rounded]="true" severity="Warning" (click)="modifierEvaluation(livrableModal.evaluationLivrable)"></p-button>
+  <p-button *ngIf="authService.roles.includes('ADMIN')"  label="Envoyer le Rapport à un client" [rounded]="true" severity="Warning" (click)="sendMail()"></p-button>
+</div>
+<br>
+  <p-fieldset  *ngIf="showFieldsetClient==true" legend="Envoyer le rapport à un client" [toggleable]="false" class="line-height-3 m-0">
+    <div class="grid">
+      <div class="col-12 ">
+        <div class="card p-fluid">
+          
+          <div class="field">
+            <label htmlFor="name1">Client</label>
+            <p-dropdown [options]="clients" optionLabel="raisonSociale" placeholder="chisissez un Client" [(ngModel)]="client"></p-dropdown>
+          </div>
+          <p-button   label="Envoyer" [rounded]="true" severity="Warning" (click)="envoyerRapport()"></p-button>
+        </div>
+        
+      </div>
+      </div>
+  </p-fieldset>
+  </div>
+
+ 
+  </p-dialog>
+
+  <p-dialog header="Confirmation de Suppression" [(visible)]="visibleSupp" [modal]="true" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
+  
+    
+    <div class="card">
+      <h6>Raison(s):</h6>
+      <div class="field">
+        <div class="d-flex justify-content-between align-items-center">
+          <textarea rows="5" cols="50" placeholder="raison de la suppression" [(ngModel)]="notificationMessage" pInputTextarea></textarea>
+          
+  
+          <div style="text-align: right;">
+            <div class="my-2">
+              <p-button  (click)="saveNotification()" label="Envoyer" [rounded]="true" severity="info"></p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+       
+  </p-dialog>
+
+
+
+  

@@ -1,0 +1,84 @@
+<div class="grid">
+	<div class="col-12 md:col-6">
+		<div class="card p-fluid">
+			<h3>Ajouter un utilisateur</h3>
+      <form [formGroup]="newUserFormGroup" (ngSubmit)="handleSaveUser()">
+			<div class="field">
+				<label htmlFor="prenom">Prénom</label>
+				<input pInputText id="prenom" type="text" formControlName="firstName" />
+        <span class="text-danger" *ngIf="newUserFormGroup.controls['username'].touched
+                  && newUserFormGroup.controls['username'].errors
+                  && newUserFormGroup.controls['username'].errors!['required']">
+            username is Required
+          </span>
+			</div>
+			<div class="field">
+				<label htmlFor="familleName">Nom de famille</label>
+				<input pInputText id="familleName" type="text" formControlName="lastName" />
+        <span class="text-danger" *ngIf="newUserFormGroup.controls['username'].touched
+                  && newUserFormGroup.controls['username'].errors
+                  && newUserFormGroup.controls['username'].errors!['required']">
+            usernameis Required
+          </span>
+			</div>
+			<div class="field">
+				<label htmlFor="username">Nom d'utilisateur </label>
+				<input pInputText id="username" type="text" formControlName="username" />
+        <span class="text-danger" *ngIf="newUserFormGroup.controls['username'].touched
+                  && newUserFormGroup.controls['username'].errors
+                  && newUserFormGroup.controls['username'].errors!['required']">
+            usernameis Required
+          </span>
+			</div>
+      <div class="field">
+				<label htmlFor="email">Email</label>
+				<input pInputText id="email" type="email" formControlName="email" />
+        <span class="text-danger" *ngIf="newUserFormGroup.controls['email'].touched
+                  && newUserFormGroup.controls['email'].errors
+                  && newUserFormGroup.controls['email'].errors!['email']">
+            Email is not valid
+          </span>
+			</div>
+      <div class="field">
+				<label htmlFor="password">Mot de passe </label>
+				<input pInputText id="password" type="password" formControlName="password" />
+        <span class="text-danger" *ngIf="newUserFormGroup.controls['username'].touched
+                  && newUserFormGroup.controls['username'].errors
+                  && newUserFormGroup.controls['username'].errors!['required']">
+            usernameis Required
+          </span>
+			</div>
+      <div class="field">
+				<label htmlFor="username">Définition des rôles </label>
+				<p-listbox [options]="appRoles" optionLabel="role"  [multiple]="true" formControlName="roles" (ngModelChange)="onRolesChange()" ></p-listbox>
+			</div>
+
+      <div class="field" *ngIf="afficherProfile==true">
+				<label htmlFor="profile">Profil </label>
+				<p-dropdown [options]="profiles" optionLabel="libelle" placeholder="chisissez un profil" [showClear]="true" formControlName="profile"></p-dropdown>
+			</div>
+
+      <div class="field">
+				<label htmlFor="password">Compte actif </label>
+				<div class="grid formgrid">
+          <div class="col-12 md:col-4">
+            <div class="field-radiobutton">
+              <p-radioButton id="active1" formControlName="active" type="radio" name="active" value="true"></p-radioButton>
+              <label for="active1">true</label>
+            </div>
+          </div>
+          <div class="col-12 md:col-4">
+            <div class="field-radiobutton">
+              <p-radioButton id="active2" formControlName="active" type="radio" name="active" value="false"></p-radioButton>
+              <label for="active2">False</label>
+            </div>
+          </div>
+
+          <button pButton pRipple [disabled]="!newUserFormGroup.valid" label="Enregistrer"></button>
+        </div>
+
+			</div>
+    </form>
+		</div>
+		
+	</div>

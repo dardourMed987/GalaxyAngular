@@ -1,0 +1,129 @@
+<div class="grid">
+	<div class="col-12">
+		<div class="card p-fluid">
+			<h3>Nouveau Sujet</h3>
+      <form [formGroup]="sujetForm" (ngSubmit)="saveSujet()">
+      <div *ngIf="currentPage === 1">
+			<div class="field">
+				<label htmlFor="title">Titre </label>
+				<input pInputText id="title" type="text" formControlName="title" />
+        <span class="text-danger" *ngIf="sujetForm.controls['title'].touched
+                                && sujetForm.controls['title'].errors
+                                && sujetForm.controls['title'].errors!['required']">
+                            Le champ titre est obligatoire
+          </span>
+			</div>
+			<div class="field">
+				<label htmlFor="operationDate">Date d'ajout</label>
+				<input pInputText id="operationDate" type="date" formControlName="operationDate" />
+        <span class="text-danger" *ngIf="sujetForm.controls['operationDate'].touched
+                              && sujetForm.controls['operationDate'].errors
+                              && sujetForm.controls['operationDate'].errors!['required']">
+                            Le champ date d'ajout est obligatoire
+        </span>
+			</div>
+			<div class="field">
+				<label htmlFor="timeConstraint">Durée en jours </label>
+				<input pInputText id="timeConstraint" type="number" formControlName="timeConstraint" />
+        <span class="text-danger" *ngIf="sujetForm.controls['timeConstraint'].touched
+                              && sujetForm.controls['timeConstraint'].errors
+                              && sujetForm.controls['timeConstraint'].errors!['required']">
+                            Le champ durée est obligatoire
+          </span>
+			</div>
+      <div class="field">
+				<label htmlFor="level">Niveau</label>
+        <p-dropdown formControlName="level" [options]="levelType"  placeholder="Choisir un..."></p-dropdown>
+        <span class="text-danger" *ngIf="sujetForm.controls['level'].touched
+                        && sujetForm.controls['level'].errors
+                        && sujetForm.controls['level'].errors!['required']">
+                            Le champ niveau est obligatoire
+          </span>
+			</div>
+    
+      <div class="p-buttonset" style="display: flex;">
+        <p-button label="Suivant" icon="pi pi-chevron-right" (click)="nextPage()" class="ml-auto"></p-button>
+      </div>
+  </div>
+  <div *ngIf="currentPage === 2">
+
+    <div class="field">
+      <label htmlFor="title">Description </label>
+      <angular-editor formControlName="description" [config]="editorConfig"></angular-editor>
+      <span class="text-danger" *ngIf="sujetForm.controls['description'].touched
+      && sujetForm.controls['description'].errors
+      && sujetForm.controls['description'].errors!['required']">
+        Le champ description est obligatoire
+      </span>
+    </div>
+
+    <div class="field">
+        <label htmlFor="title">Fonctionalité </label>
+        <angular-editor formControlName="functionality" [config]="editorConfig"></angular-editor>
+        <span class="text-danger" *ngIf="sujetForm.controls['functionality'].touched
+            && sujetForm.controls['functionality'].errors
+            && sujetForm.controls['functionality'].errors!['required']">
+          Le champ fonctionalité est obligatoire
+        </span>
+      </div>
+   
+      <div class="p-buttonset" style="display: flex; justify-content: space-between;">
+        <p-button label="Précédent" icon="pi pi-chevron-left" (click)="prevPage()" style="margin-right: 10px;"></p-button>
+        <p-button label="Suivant" icon="pi pi-chevron-right" (click)="nextPage()"></p-button>
+      </div>
+  </div>
+  <div *ngIf="currentPage === 3">
+    <div class="field">
+      <label htmlFor="title">Livraison attendue </label>
+        <angular-editor formControlName="expectedDelivery" [config]="editorConfig"></angular-editor>
+        <span class="text-danger" *ngIf="sujetForm.controls['expectedDelivery'].touched
+            && sujetForm.controls['expectedDelivery'].errors
+            && sujetForm.controls['expectedDelivery'].errors!['required']">
+          Le champ livraison attendue est obligatoire
+        </span>
+      </div>
+    
+    <div class="field">
+      <label htmlFor="title">Évaluation du développeur </label>
+        <angular-editor formControlName="developerRating" [config]="editorConfig"></angular-editor>
+        <span class="text-danger" *ngIf="sujetForm.controls['developerRating'].touched
+            && sujetForm.controls['developerRating'].errors
+            && sujetForm.controls['developerRating'].errors!['required']">
+          Le champ évaluation du développeur est obligatoire
+        </span>
+      </div>
+    <div class="p-buttonset" style="display: flex; justify-content: space-between;">
+      <p-button label="Précédent" icon="pi pi-chevron-left" (click)="prevPage()" style="margin-right: 10px;"></p-button>
+      <p-button label="Suivant" icon="pi pi-chevron-right" (click)="nextPage()"></p-button>
+    </div>
+  </div>
+  <div *ngIf="currentPage === 4">
+    <div class="field">
+      <label htmlFor="title">Exigences Techniques </label>
+        <angular-editor formControlName="stackTechnique" [config]="editorConfig"></angular-editor>
+        <span class="text-danger" *ngIf="sujetForm.controls['stackTechnique'].touched
+          && sujetForm.controls['stackTechnique'].errors
+          && sujetForm.controls['stackTechnique'].errors!['required']">
+          Le champ exigences techniques est obligatoire
+        </span>
+      </div>
+   
+    <div class="field">
+      <label htmlFor="technologie">Technologie</label>
+      <p-dropdown formControlName="profile" [options]="profiles" optionLabel="libelle"></p-dropdown>
+    </div>
+    <div class="p-buttonset">
+      <p-button label="Précédent" icon="pi pi-chevron-left" (click)="prevPage()"></p-button>
+    </div>
+    <div class="p-buttonset justify-content-center">
+      <p-button type="button" label="Annuler" icon="pi pi-times" styleClass="p-button-danger  " (click)="cancelSaveSujet()"></p-button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <p-button type="submit" label="Ajouter" icon="pi pi-check" styleClass="p-button-success " [disabled]="!sujetForm.valid"></p-button>
+    </div>
+  </div>   
+<!-- Alert de succès -->
+<p-alert *ngIf="showAlert" severity="success" [closable]="true" class="ms-2">
+  Votre demande d'ajout a été correctement envoyée.
+</p-alert>         
+    </form>
+	</div>

@@ -1,0 +1,21 @@
+<div class="grid">
+	<div class="col-12 md:col-6">
+		<div class="card p-fluid">
+			<h3>Ajouter un role</h3>
+      <form [formGroup]="appRoleForm" (ngSubmit)="saveAppRole()">
+			<div class="field">
+				<label htmlFor="lib">Prénom</label>
+				<input pInputText id="lib" type="text" formControlName="role" />
+                <span class="text-danger" *ngIf="appRoleForm.controls['role'].touched
+                && appRoleForm.controls['role'].errors
+                && appRoleForm.controls['role'].errors!['required']">
+                    Le champ Libellé est obligatoire
+                </span>
+			</div>
+
+            
+            <button pButton pRipple [disabled]="!appRoleForm.valid" label="Enregistrer"></button>
+        </form>
+    </div>
+    </div>
+</div>

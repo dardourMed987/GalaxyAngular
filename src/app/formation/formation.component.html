@@ -1,0 +1,221 @@
+<div *ngIf="authService.roles.includes('ADMIN')" class="grid">
+  <div class="col-12 lg:col-6 xl:col-3">
+      <div class="card mb-0">
+          <div class="flex justify-content-between mb-3">
+              <div>
+                  <span class="block text-500 font-medium mb-3">Nouvel utilisateur</span>
+              </div>
+              
+          </div>
+          <p-button label="Ajouter un utilisateur" [rounded]="true" severity="info" icon="pi pi-user" [routerLink]="['/admin/adduser']"></p-button>
+      </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+        <div class="flex justify-content-between mb-3">
+            <div>
+                <span class="block text-500 font-medium mb-3">Nouveau client</span>
+            </div>
+        </div>
+        <p-button label="Ajouter un client" [rounded]="true" severity="success" icon="pi pi-users"  [routerLink]="['/admin/addClient']"></p-button>
+    </div>
+</div>
+<div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+        <div class="flex justify-content-between mb-3">
+            <div>
+                <span class="block text-500 font-medium mb-3">Nouveau sujet</span>
+            </div>
+            
+        </div>
+        <p-button label="Ajouter un sujet" [rounded]="true" severity="help" icon="pi pi-comment" [routerLink]="['/admin/addsujet2']"></p-button>
+    </div>
+</div>
+<div class="col-12 lg:col-6 xl:col-3">
+    <div class="card mb-0">
+        <div class="flex justify-content-between mb-3">
+            <div>
+                <span class="block text-500 font-medium mb-3">Nouvelle formation</span>
+            </div>
+            
+        </div>
+        <p-button label="Ajouter une formation" [rounded]="true"  icon="pi pi-book" ></p-button>
+    </div>
+</div>
+
+  <div class="col-12 ">
+    <div class="card">
+        <h5>Derniers sujets ajoutés</h5>
+        <p-table [value]="sujets" [rows]="5" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="font-weight: bold; background-color: #f0f0f0;">Titre</th>
+                <th style="font-weight: bold; background-color: #f0f0f0;">Durée</th>
+                <th style="font-weight: bold; background-color: #f0f0f0;">Technologie</th>
+                <th style="font-weight: bold; background-color: #f0f0f0;"></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-sujet>
+              <tr>
+                <td style="width: 30%; min-width: 5rem; font-weight: bold; color: #333;">{{sujet.title}}</td>
+                <td style="width: 30%; min-width: 7rem; font-style: italic; color: #555;">{{sujet.level}}</td>
+                <td *ngIf="sujet.profile != null" style="width: 20%; min-width: 8rem; color: #777;">{{sujet.profile.libelle}}</td>
+                <td style="width: 20%;">
+                  <p-button label="Consulter" [rounded]="true" styleClass="p-button-info" (click)="gotToPageDisplaySujet(sujet)"></p-button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+          
+    </div>
+
+    <div class="card">
+        <h5>Derniers livrables ajoutés</h5>
+        <p-table [value]="livrables" [rows]="5" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="font-weight: bold; background-color: #f0f0f0;">Les repositories</th>
+                <th style="font-weight: bold; background-color: #f0f0f0;">Sujet</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-livrable>
+              <tr>
+                <td style="width: 40%; min-width: 5rem; font-weight: bold; color: #333;">
+                    <p *ngFor="let u of livrable.utilisateurs"><a href="{{livrable.gitUrl}}"
+                    target="_blank">{{u.username}}/{{livrable.repoName}} </a></p></td>
+                <td *ngIf="livrable.sujet!=null" style="width: 60%; min-width: 7rem; font-style: italic; color: #555;">{{livrable.sujet.title}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+          
+    </div>
+
+
+    
+</div>
+</div>
+
+
+
+<div *ngIf="authService.roles.includes('FORMATEUR')" class="grid">
+  <div class="col-12 lg:col-6 xl:col-3">
+      <div class="card mb-0">
+          <div class="flex justify-content-between mb-3">
+              <div>
+                  <span class="block text-500 font-medium mb-3">Nouveau sujet</span>
+              </div>
+              
+          </div>
+          <p-button label="Ajouter un sujet" [rounded]="true" severity="help" icon="pi pi-comment" [routerLink]="['/admin/addsujet2']"></p-button>
+      </div>
+  </div>
+  <div class="col-12 lg:col-6 xl:col-3">
+      <div class="card mb-0">
+          <div class="flex justify-content-between mb-3">
+              <div>
+                  <span class="block text-500 font-medium mb-3">Nouvelle formation</span>
+              </div>
+              
+          </div>
+          <p-button label="Ajouter une formation" [rounded]="true"  icon="pi pi-book" ></p-button>
+      </div>
+  </div>
+  
+    <div class="col-12 ">
+      <div class="card">
+          <h5>Derniers sujets ajoutés</h5>
+          <p-table [value]="sujets" [rows]="5" responsiveLayout="scroll">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="font-weight: bold; background-color: #f0f0f0;">Titre</th>
+                  <th style="font-weight: bold; background-color: #f0f0f0;">Durée</th>
+                  <th style="font-weight: bold; background-color: #f0f0f0;">Technologie</th>
+                  <th style="font-weight: bold; background-color: #f0f0f0;"></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-sujet>
+                <tr>
+                  <td style="width: 30%; min-width: 5rem; font-weight: bold; color: #333;">{{sujet.title}}</td>
+                  <td style="width: 30%; min-width: 7rem; font-style: italic; color: #555;">{{sujet.level}}</td>
+                  <td *ngIf="sujet.profile != null" style="width: 20%; min-width: 8rem; color: #777;">{{sujet.profile.libelle}}</td>
+                  <td style="width: 20%;">
+                    <p-button label="Consulter" [rounded]="true" styleClass="p-button-info" (click)="gotToPageDisplaySujet(sujet)"></p-button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+            
+      </div>
+  
+      <div class="card">
+          <h5>Derniers livrables ajoutés</h5>
+          <p-table [value]="livrables" [rows]="5" responsiveLayout="scroll">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="font-weight: bold; background-color: #f0f0f0;">Les repositories</th>
+                  <th style="font-weight: bold; background-color: #f0f0f0;">Sujet</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-livrable>
+                <tr>
+                  <td style="width: 40%; min-width: 5rem; font-weight: bold; color: #333;">
+                      <p *ngFor="let u of livrable.utilisateurs"><a href="{{livrable.gitUrl}}"
+                      target="_blank">{{u.username}}/{{livrable.repoName}} </a></p></td>
+                  <td *ngIf="livrable.sujet!=null" style="width: 60%; min-width: 7rem; font-style: italic; color: #555;">{{livrable.sujet.title}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+            
+      </div>
+  
+  
+      
+  </div>
+  </div>
+
+
+
+
+
+  <div *ngIf="authService.roles.includes('APPRENANT')" class="grid">
+    <div class="col-12 lg:col-6 xl:col-3">
+        <div class="card mb-0">
+            <div class="flex justify-content-between mb-3">
+                <div>
+                    <span class="block text-500 font-medium mb-3">Nouveau Livrable</span>
+                </div>
+                
+            </div>
+            <button  (click)="goToPageAddLivrable()" pButton pRipple label="Ajouter un livrable" icon="pi pi-plus" class="p-button-success mr-2"  ></button>
+        </div>
+    </div>
+  
+    <div class="col-12 ">
+      <div class="card">
+          <h5>Derniers sujets ajoutés</h5>
+          <p-table [value]="sujets" [rows]="5" responsiveLayout="scroll">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="font-weight: bold; background-color: #f0f0f0;">Titre</th>
+                  <th style="font-weight: bold; background-color: #f0f0f0;">Durée</th>
+                  <th style="font-weight: bold; background-color: #f0f0f0;">Technologie</th>
+                  <th style="font-weight: bold; background-color: #f0f0f0;"></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-sujet>
+                <tr>
+                  <td style="width: 30%; min-width: 5rem; font-weight: bold; color: #333;">{{sujet.title}}</td>
+                  <td style="width: 30%; min-width: 7rem; font-style: italic; color: #555;">{{sujet.level}}</td>
+                  <td  style="width: 20%; min-width: 8rem; color: #777;"><span *ngIf="sujet.profile != null">{{sujet.profile.libelle}}</span></td>
+                  <td style="width: 20%;">
+                    <p-button label="Consulter" [rounded]="true" styleClass="p-button-info" (click)="gotToPageDisplaySujet(sujet)"></p-button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+            
+      </div>
+  </div>
+  </div>
+  
+  

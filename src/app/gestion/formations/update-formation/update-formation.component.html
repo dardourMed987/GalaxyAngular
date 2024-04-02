@@ -1,0 +1,21 @@
+<div *ngIf="formationForm">
+    <form [formGroup]="formationForm" (ngSubmit)="modifierFormation()">
+        <input type="hidden" class="form-control" formControlName="id">
+
+        <div class="mb-3">
+            <label for="formationName" class="form-label">Nom de la formation</label>
+            <input type="text" class="form-control" formControlName="formationName">
+        </div>
+        <div class="mb-3">
+            <label for="operationDate" class="form-label">Date</label>
+            <input type="date" class="form-control" formControlName="operationDate">
+        </div>
+        <div class="mb-3">
+            <label for="imageUrl" class="form-label">Url de l'image</label>
+            <input type="text" class="form-control" formControlName="imageUrl">
+        </div>
+
+        <button type="reset" class="btn btn-danger">Annuler</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!formationForm.valid">Modifier</button>
+    </form>
+</div>

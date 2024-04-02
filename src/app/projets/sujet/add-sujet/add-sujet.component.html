@@ -1,0 +1,158 @@
+<section class="h-100 bg-dark">
+  <form [formGroup]="sujetForm" (ngSubmit)="saveSujet()">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card card-registration my-4">
+            <div class="row g-0">
+              <div class="col-xl-6 d-none d-xl-block">
+                <img src="http://lms.intiformation.fr/pluginfile.php/63/course/overviewfiles/Slider_3.jpg"
+                  alt="photo formation" class="img-fluid"
+                  style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; width: 100%; height: 100%;" />
+              </div>
+
+              <div class="col-xl-6">
+                <div class="card-body p-md-5 text-black">
+                  <h3 class="mb-5 text-uppercase">Nouveau Sujet</h3>
+
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="title">Titre</label>
+                      <input type="text" id="title" class="form-control form-control-lg" formControlName="title" />
+                      <span class="text-danger" *ngIf="sujetForm.controls['title'].touched
+                            && sujetForm.controls['title'].errors
+                            && sujetForm.controls['title'].errors!['required']">
+                        Le champ titre est obligatoire
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="operationDate">Date d'ajout</label>
+                      <input type="date" id="operationDate" class="form-control form-control-lg"
+                        formControlName="operationDate" />
+                      <span class="text-danger" *ngIf="sujetForm.controls['operationDate'].touched
+                          && sujetForm.controls['operationDate'].errors
+                          && sujetForm.controls['operationDate'].errors!['required']">
+                        Le champ date d'ajout est obligatoire
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="timeConstraint">Durée en jours</label>
+                      <input type="number" id="timeConstraint" class="form-control form-control-lg"
+                        formControlName="timeConstraint" />
+                      <span class="text-danger" *ngIf="sujetForm.controls['timeConstraint'].touched
+                          && sujetForm.controls['timeConstraint'].errors
+                          && sujetForm.controls['timeConstraint'].errors!['required']">
+                        Le champ durée est obligatoire
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="level">Niveau</label>
+                      <select id="level" class="form-control form-control-lg" formControlName="level">
+                        <option [ngValue]="null">Choisir un...</option>
+                        <option *ngFor="let level of levelType | keyvalue" [ngValue]="level.value">{{level.value}}
+                        </option>
+                      </select>
+                      <span class="text-danger" *ngIf="sujetForm.controls['level'].touched
+                    && sujetForm.controls['level'].errors
+                    && sujetForm.controls['level'].errors!['required']">
+                        Le champ niveau est obligatoire
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="description">Description</label>
+                      <textarea id="description" class="form-control form-control-lg"
+                        formControlName="description"></textarea>
+                      <span class="text-danger" *ngIf="sujetForm.controls['description'].touched
+                      && sujetForm.controls['description'].errors
+                      && sujetForm.controls['description'].errors!['required']">
+                        Le champ description est obligatoire
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="functionality">Fonctionalité</label>
+                      <textarea id="functionality" class="form-control form-control-lg"
+                        formControlName="functionality"></textarea>
+                      <span class="text-danger" *ngIf="sujetForm.controls['functionality'].touched
+                          && sujetForm.controls['functionality'].errors
+                          && sujetForm.controls['functionality'].errors!['required']">
+                        Le champ fonctionalité est obligatoire
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="expectedDelivery">Livraison attendue</label>
+                      <textarea id="expectedDelivery" class="form-control form-control-lg"
+                        formControlName="expectedDelivery"></textarea>
+                      <span class="text-danger" *ngIf="sujetForm.controls['expectedDelivery'].touched
+                          && sujetForm.controls['expectedDelivery'].errors
+                          && sujetForm.controls['expectedDelivery'].errors!['required']">
+                        Le champ livraison attendue est obligatoire
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="developerRating">Évaluation du développeur</label>
+                      <textarea id="developerRating" class="form-control form-control-lg"
+                        formControlName="developerRating"></textarea>
+                      <span class="text-danger" *ngIf="sujetForm.controls['developerRating'].touched
+                          && sujetForm.controls['developerRating'].errors
+                          && sujetForm.controls['developerRating'].errors!['required']">
+                        Le champ évaluation du développeur est obligatoire
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="stackTechnique">Exigences Techniques</label>
+                      <textarea id="stackTechnique" class="form-control form-control-lg"
+                        formControlName="stackTechnique"></textarea>
+                      <span class="text-danger" *ngIf="sujetForm.controls['stackTechnique'].touched
+                        && sujetForm.controls['stackTechnique'].errors
+                        && sujetForm.controls['stackTechnique'].errors!['required']">
+                        Le champ exigences techniques est obligatoire
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <label class="form-label" for="profile">Technologie</label>
+                      <select class="form-control" formControlName="profile">
+                        <option *ngFor="let p of profiles" [ngValue]="p">{{ p.libelle }}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!--<div class="mb-3" *ngIf="afficherProfile==true">
+                    <label for="profile" class="form-label">Profil de l'utilisateur :</label>
+                    <select class="form-control" formControlName="profile">
+                      <option *ngFor="let p of profiles" [ngValue]="p">{{ p.libelle }}</option>
+                    </select>
+                  </div>-->
+                  <button type="reset" class="btn btn-danger btn-lg ms-2" (click)="cancelSaveSujet()">Annuler</button>
+                  <button [disabled]="!sujetForm.valid" class="btn btn-success btn-lg ms-2">Ajouter</button>
+                  <ngb-alert *ngIf="showAlert" [dismissible]="true" type="success">
+                    Votre demande d'ajout a été correctement envoyée.
+                  </ngb-alert>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</section>

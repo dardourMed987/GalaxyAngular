@@ -1,0 +1,60 @@
+<section class="h-100 bg-dark">
+  <form [formGroup]="formationForm" (ngSubmit)="saveFormation()">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card card-registration my-4">
+            <div class="row g-0">
+              <div class="col-xl-6 d-none d-xl-block">
+                <img src="http://lms.intiformation.fr/pluginfile.php/63/course/overviewfiles/Slider_3.jpg"
+                  alt="photo formation" class="img-fluid"
+                  style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem; width: 100%; height: 100%;" />
+              </div>
+
+              <div class="col-xl-6">
+                <div class="card-body p-md-5 text-black">
+                  <h3 class="mb-5 text-uppercase">Nouvelle formation</h3>
+
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <span class="text-danger" *ngIf="formationForm.controls['formationName'].touched
+                            && formationForm.controls['formationName'].errors
+                            && formationForm.controls['formationName'].errors!['required']">
+                        formation name is Required
+                      </span>
+                      <input type="text" id="formationName" class="form-control form-control-lg"
+                        formControlName="formationName" />
+                      <label class="form-label" for="formationName">Nom de la formation</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <input type="date" id="operationDate" class="form-control form-control-lg"
+                        formControlName="operationDate" />
+                      <label class="form-label" for="operationDate">Date</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-outline mb-4">
+                      <input type="text" id="imageUrl" class="form-control form-control-lg"
+                        formControlName="imageUrl" />
+                      <label class="form-label" for="imageUrl">Url de l'image</label>
+                    </div>
+                  </div>
+
+                  <button type="reset" class="btn btn-danger btn-lg ms-2">Annuler</button>
+                  <button [disabled]="!formationForm.valid" class="btn btn-success btn-lg ms-2">Ajouter</button>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</section>

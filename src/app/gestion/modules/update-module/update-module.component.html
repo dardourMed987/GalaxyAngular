@@ -1,0 +1,29 @@
+<div *ngIf="moduleForm">
+    <form [formGroup]="moduleForm" (ngSubmit)="modifierFormation()">
+        <input type="hidden" class="form-control" formControlName="id">
+
+
+        <div class="mb-3">
+            <label for="moduleName" class="form-label">Nom du module</label>
+            <input type="text" class="form-control" formControlName="moduleName">
+        </div>
+        <div class="mb-3">
+            <label for="operationDate" class="form-label">Date</label>
+            <input type="date" class="form-control" formControlName="operationDate">
+        </div>
+        <div class="mb-3">
+            <label for="imageUrl" class="form-label">Url de l'image</label>
+            <input type="text" class="form-control" formControlName="imageUrl">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="formations">Formations</label>
+            <select class="form-control" type="number" formControlName="formations" multiple>
+                <option *ngFor="let formation of listeFormation" [ngValue]="formation">{{formation.formationName}}
+                </option>
+            </select>
+        </div>
+
+        <button type="reset" class="btn btn-danger">Annuler</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!moduleForm.valid">Modifier</button>
+    </form>
+</div>

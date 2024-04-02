@@ -1,0 +1,110 @@
+<div class="col-12">
+  <div class="card">
+    <h3>Gestion des sujets</h3>
+    <p-toolbar styleClass="mb-4">
+      <ng-template pTemplate="left">
+        <div class="my-2">
+          <p-button label="Télécharger PDF" icon="pi pi-download" (click)="generatePDF3()"></p-button>
+        </div>
+      </ng-template>
+    
+      <ng-template pTemplate="right">
+        <div class="my-2">
+          <p-button label="Retour à la liste des sujets" icon="pi pi-arrow-left" (click)="goToPageDisplayAllSujets()"></p-button>
+        </div>
+      </ng-template>
+    </p-toolbar>
+
+
+<section style="background-color: #eee;" id="htmlContainer">
+  <div id="etus" class="container-fluid pt-2">
+    <div class="row">
+      <div class="col-md-8">
+        <div #htmlContainer22 class="card">
+          <div class="green-bar"></div>
+          <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
+            <div class="mask">
+              <div class="d-flex justify-content-start align-items-center h-100 ml-2">
+                <!-- Ajout de la classe "ml-2" pour la marge gauche de 2 cm -->
+                <img src="/assets/img/logo_inti.png" width="120" height="120" alt="Logo INTI">
+              </div>
+            </div>
+            <div class="hover-overlay">
+              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title text-center" style="color: #efb145; font-family: 'Raleway', sans-serif; font-weight: bold;">{{ sujet.title }}</h1>
+            <h5 class="card-subtitle mb-4 text-muted text-center">{{ sujet.timeConstraint }} jour(s)</h5>
+      
+            <div class="project-details" style="margin-top: 2cm;">
+              <div class="project-detail">
+                <h5 style="color:#016965; font-weight: bold; font-family: 'Raleway'; margin-top: 10px !important;">Titre du Projet :</h5>
+                <p class="text-lg font-medium" >{{ sujet.title }}</p>
+              </div>
+      
+              <div class="project-detail">
+                <h5 style="color:#016965; font-weight: bold; font-family: 'Raleway'; margin-top: 10px !important;">Contraintes de temps :</h5>
+                <p class="text-lg font-medium">
+                  Ce projet est prévu pour être réalisé en {{ sujet.timeConstraint }} jour(s). Il est important de bien gérer
+                  le temps et de prioriser les fonctionnalités essentielles pour assurer une livraison réussie dans les délais
+                  impartis.
+                </p>
+              </div>
+      
+              <div class="project-detail">
+                <h5 style="color:#016965; font-weight: bold; font-family: 'Raleway'; margin-top: 10px !important;">Description du Projet :</h5>
+                <p class="text-lg font-medium" [innerHTML]="sujet.description"></p>
+              </div>
+      
+              <div class="project-detail">
+                <h5 style="color:#016965; font-weight: bold; font-family: 'Raleway'; margin-top: 10px !important;">Fonctionnalités attendues :</h5>
+                <p class="text-lg font-medium" [innerHTML]="sujet.functionality"></p>
+              </div>
+      
+              <div class="project-detail">
+                <h5 style="color:#016965; font-weight: bold; font-family: 'Raleway'; margin-top: 10px !important;">Exigences techniques :</h5>
+                <p class="text-lg font-medium" [innerHTML]="sujet.stackTechnique"></p>
+              </div>
+      
+              <div class="project-detail">
+                <h5 style="color:#016965; font-weight: bold; font-family: 'Raleway'; margin-top: 10px !important;">Livraison attendue :</h5>
+                <p class="text-lg font-medium" [innerHTML]="sujet.expectedDelivery"></p>
+              </div>
+      
+              <div class="project-detail">
+                <h5 style="color:#016965; font-weight: bold; font-family: 'Raleway'; margin-top: 10px !important;">Évaluation du développeur :</h5>
+                <p class="text-lg font-medium" [innerHTML]="sujet.developerRating"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <!-- <div class="btn-group btn-group-sm col-md-4" role="group">
+        <div class="row">
+          <div class="col-sm">
+            <button type="button" class="btn btn-secondary me-1" (click)="generatePDF(sujet)"><span
+                class="bi bi-file-pdf"></span>Ouvrir</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <button type="button" class="btn btn-secondary me-1" (click)="generatePDF(sujet,'download')"><span
+                class="bi bi-file-pdf"></span>Télécharger</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm">
+            <button type="button" class="btn btn-secondary" (click)="generatePDF(sujet,'print')"><span
+                class="bi bi-file-pdf"></span>Imprimer</button>
+          </div>
+        </div>
+      </div>--> 
+      
+    </div>
+
+  </div>
+</section>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="col-12">
+    <div class="card">
+  
+      
+      <h3>Gestion des critères d'évaluation</h3>
+              <p-toolbar styleClass="mb-4">
+                  <ng-template pTemplate="left">
+                      <div class="my-2">
+                          <button pButton pRipple label="Ajouter un critère" icon="pi pi-plus" class="p-button-success mr-2" (click)="goToAddCritere()" ></button>
+                      </div>
+                  </ng-template>
+              </p-toolbar>
+
+              <p-table [value]="criteres" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Critère</th>
+                        <th>Actif</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-critere>
+                    <tr>
+                        <td>{{critere.nomCritere}}</td>
+                        <td><p-inputSwitch (onChange)="handleChange(critere,$event)" [(ngModel)]="critere.active"></p-inputSwitch></td>
+                        <td><button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="supprimerCritere(critere)"  ></button></td>
+                        
+                    </tr>
+                </ng-template>
+            </p-table>
+    </div>
+</div>
+<p-dialog header="Ajouter un critère" [(visible)]="visible" [modal]="true" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
+  
+    
+    
+        <div class="card p-fluid">
+      <form [formGroup]="critereForm" (ngSubmit)="saveCritere()">
+			<div class="field">
+				<label htmlFor="lib">Critère</label>
+				<input pInputText id="lib" type="text" formControlName="nomCritere" />
+                <span class="text-danger" *ngIf="critereForm.controls['nomCritere'].touched
+                && critereForm.controls['nomCritere'].errors
+                && critereForm.controls['nomCritere'].errors!['required']">
+                    Le champ Critère est obligatoire
+                </span>
+			</div>
+
+            
+            <button pButton pRipple [disabled]="!critereForm.valid" label="Enregistrer"></button>
+        </form>
+    </div>
+   
+    
+       
+  </p-dialog>
