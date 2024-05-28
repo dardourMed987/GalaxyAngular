@@ -80,5 +80,7 @@
 			</div>
     </form>
 		</div>
-		
+    <ng-container *ngIf="pregressBar">
+    <p-progressBar  mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+  </ng-container>
 	</div>

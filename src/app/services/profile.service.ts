@@ -14,4 +14,20 @@ export class ProfileService {
   public getProfiles(): Observable<any> {
     return this.http.get<Profile[]>(environment.backendHost + '/Profiles');
   }
+
+  public addProfiles(profile: Profile): Observable<any> {
+
+    return this.http.post(
+      environment.backendHost + '/Profiles',
+      profile
+    );
+  }
+
+  public deleteProfile(id: number): Observable<any> {
+    return this.http.delete(environment.backendHost + '/Profiles/' + id);
+  }
+
+  
+
+
 }

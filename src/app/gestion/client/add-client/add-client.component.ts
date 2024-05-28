@@ -42,6 +42,7 @@ export class AddClientComponent implements OnInit {
     let client: client = this.newClientFormGroup.value;
     this.clientService.addClient(client).subscribe(
       Response=>{
+        alert('Ajout effectué avec succès!');
         this.router.navigateByUrl('/admin/clients');
       }
     )

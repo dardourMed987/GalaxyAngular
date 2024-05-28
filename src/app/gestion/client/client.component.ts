@@ -48,7 +48,7 @@ export class ClientComponent implements OnInit {
 
     this.clientService.getAllClient().subscribe(
       response=>{
-        this.clients=response;
+        this.clients=response.reverse();
       }
     )
   }

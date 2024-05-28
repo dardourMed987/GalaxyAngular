@@ -17,6 +17,7 @@ export class AddUtlisateurComponent {
   appRoles!: any[];
   profiles!:Profile[]
   afficherProfile=false;
+  pregressBar=false;
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -53,13 +54,16 @@ export class AddUtlisateurComponent {
 
   handleSaveUser() {
     let user: User = this.newUserFormGroup.value;
+    this.pregressBar=true;
     this.userService.addUser(user).subscribe({
       next: (data: any) => {
         alert('Ajout effectué avec succès!');
         //this.newCustomerFormGroup.reset();
+        this.pregressBar=false;
         this.router.navigateByUrl('/admin/utilisateurs');
       },
       error: (err: any) => {
+        this.pregressBar=false;
         console.log(err);
       },
     });

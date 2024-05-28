@@ -30,7 +30,7 @@
             </p-table>
     </div>
 </div>
-<p-dialog header="Ajouter un critère" [(visible)]="visible" [modal]="true" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
+<p-dialog header="Ajouter un critère" [(visible)]="visible" [modal]="true" (onHide)="onCloseModal()" [style]="{ width: '40vw' }" [draggable]="false" [resizable]="false">
   
     
     

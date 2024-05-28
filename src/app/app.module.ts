@@ -83,6 +83,8 @@ import { AddClientComponent } from './gestion/client/add-client/add-client.compo
 import { DiscussionComponent } from './gestion/discussion/discussion.component';
 import { CalendarModule } from 'primeng/calendar';
 import { MessagesModule } from 'primeng/messages';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { TechnologieComponent } from './gestion/technologie/technologie.component';
 
 
 
@@ -119,7 +121,8 @@ import { MessagesModule } from 'primeng/messages';
         ModifierEvaluationComponent,
         ClientComponent,
         AddClientComponent,
-        DiscussionComponent
+        DiscussionComponent,
+        TechnologieComponent
 
     ],
     imports: [
@@ -173,7 +176,10 @@ import { MessagesModule } from 'primeng/messages';
         AccordionModule,
         RatingModule,
         CalendarModule,
-        MessagesModule
+        MessagesModule,
+        ProgressSpinnerModule,
+        ProgressBarModule,
+        ToastModule
         
     ],
     providers: [

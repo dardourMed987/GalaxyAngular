@@ -54,6 +54,7 @@ export class CritereComponent implements OnInit {
       response=>
       {
         this.visible=false;
+        this.critereForm.reset();
         this.getAllCritere();
       }
     )
@@ -81,6 +82,12 @@ export class CritereComponent implements OnInit {
       }
     )
   }
+
+  onCloseModal()
+  {
+    this.critereForm.reset();
+  }
+
 
 
 

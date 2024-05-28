@@ -76,4 +76,7 @@ export class LoginComponent implements OnInit {
       },
     });
   }
+  afficherAlerte() {
+    alert('Veuillez contacter l\'administrateur de l\'application pour récupérer votre mot de passe.');
+  }
 }

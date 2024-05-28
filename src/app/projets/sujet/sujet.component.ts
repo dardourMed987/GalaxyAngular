@@ -35,7 +35,6 @@ export class SujetComponent implements OnInit {
   loading: boolean = false; 
   visible: boolean = false;
   visible2: boolean = false;
-  profiles=["java","cobol"];
   discussion!:discussion;
   utilisateur!:User;
   messagediscussion!:string;
@@ -101,7 +100,7 @@ export class SujetComponent implements OnInit {
   
   getSujets() {
     this.sujetService.getSujets().subscribe((data) => {
-      this.sujets = data;
+      this.sujets = data.reverse();
       this.sujets.forEach((s: Sujet) => {
         let disc:discussion;
         this.discussionService.getDiscussionById(s.id,this.utilisateur.username).subscribe(
@@ -119,7 +118,7 @@ export class SujetComponent implements OnInit {
     this.sujetService
       .getSujetsByUsername(this.authService.username)
       .subscribe((data) => {
-        this.sujets = data;
+        this.sujets = data.reverse();
         
         for(let s of this.sujets )
         {

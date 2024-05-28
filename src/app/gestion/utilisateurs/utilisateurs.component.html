@@ -125,8 +125,7 @@
           </td>
           <td>
             <span *ngIf="utilisateur.profile!=null">
-            <p-badge *ngIf="utilisateur.profile.libelle === 'Java'" value="Java" severity="info"></p-badge>
-            <p-badge *ngIf="utilisateur.profile.libelle === 'Cobol'" value="Cobol" severity="primary"></p-badge>
+            <p-badge  value="{{utilisateur.profile.libelle}}" severity="info"></p-badge>
           </span>
         </td>
           <td class="text-center">

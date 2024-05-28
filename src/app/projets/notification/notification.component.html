@@ -56,7 +56,7 @@
           </td>
           <td>
             <ng-template [ngIf]="notif.type === 'suppression'">
-              <p-button label="Valider la Suppression" [rounded]="true" severity="danger" (click)="validerSuppression(notif)"></p-button>
+              <p-button  label="Valider la Suppression" [rounded]="true" severity="danger" (click)="validerSuppression(notif)"></p-button>
             </ng-template>
             <ng-template [ngIf]="notif.type === 'ajout'">
               <p-button label="Valider l'ajout" [rounded]="true" severity="success" (click)="validerLajout(notif)"></p-button>

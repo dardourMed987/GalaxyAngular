@@ -50,18 +50,13 @@ export class DiscussionComponent implements OnInit {
   }
 
   sortDiscussionsByRecentMessage(discussions: discussion[]): discussion[] {
-    // Pour chaque discussion
     for (let discussion of discussions) {
-        // Trier les messages par date du plus récent au plus ancien
         discussion.messages.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     }
 
-    // Trier les discussions par date du message le plus récent
     discussions.sort((a, b) => {
-        // Obtenez la date du message la plus récente pour chaque discussion
         const latestMessageDateA = a.messages.length > 0 ? new Date(a.messages[0].date) : new Date(0);
         const latestMessageDateB = b.messages.length > 0 ? new Date(b.messages[0].date) : new Date(0);
-        // Triez les discussions en fonction de ces dates
         return latestMessageDateB.getTime() - latestMessageDateA.getTime();
     });
 

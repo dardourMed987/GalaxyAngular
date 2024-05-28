@@ -116,7 +116,7 @@ export class LivrableComponent implements OnInit {
       })
     ).subscribe(
       response=>{
-        this.livrables=response
+        this.livrables=response.reverse();
         for(let liv of this.livrables)
         {
           this.evaluationLivrableservice.getEvaluationByLivrable(liv.id).subscribe(
@@ -132,7 +132,7 @@ export class LivrableComponent implements OnInit {
     this.livrableService
       .getLivrablesByUsername(this.authService.username)
       .subscribe((data) => {
-        this.livrables2 = data;
+        this.livrables2 = data.reverse();
       });
   }
 
@@ -251,6 +251,7 @@ export class LivrableComponent implements OnInit {
       response=>{
         console.log('mail ok');
         this.router.navigateByUrl('/admin/livrable');
+        this.visibleRapport=false;
       });
   }
 

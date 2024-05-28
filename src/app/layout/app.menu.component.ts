@@ -44,6 +44,7 @@ export class AppMenuComponent implements OnInit {
             menuItemsGestion.push({ label: 'Utilisateurs', icon: 'pi pi-users', routerLink: ['/admin/utilisateurs'], badge: 'NEW' });
             menuItemsGestion.push({  label: 'Clients', icon: 'pi pi-user-edit', routerLink: ['/admin/clients'], badge: 'NEW' });
             menuItemsGestion.push({ label: 'Roles', icon: 'pi pi-key', routerLink: ['/admin/role'], badge: 'NEW' });
+            menuItemsGestion.push({ label: 'Technologies', icon: 'pi pi-code', routerLink: ['/admin/technologies'], badge: 'NEW' });
             menuItemsGestion.push({  label: 'Critéres évaluation livrable', icon: 'pi pi-list', routerLink: ['/admin/critere'], badge: 'NEW' });
 
         }

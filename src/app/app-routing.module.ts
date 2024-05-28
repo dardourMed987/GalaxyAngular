@@ -1,6 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { NotfoundComponent } from './demo/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/app.layout.component";
 import { LoginComponent } from './login/login.component';
 import { FormationComponent } from './formation/formation.component';
@@ -25,6 +24,7 @@ import { ClientComponent } from './gestion/client/client.component';
 import { AddClientComponent } from './gestion/client/add-client/add-client.component';
 import { DiscussionComponent } from './gestion/discussion/discussion.component';
 import { EditUtilisateurComponent } from './gestion/utilisateurs/edit-utilisateur/edit-utilisateur.component';
+import { TechnologieComponent } from './gestion/technologie/technologie.component';
 
 
 const routes: Routes = [
@@ -53,6 +53,7 @@ const routes: Routes = [
           { path: 'critere', component: CritereComponent },
           { path: 'clients', component: ClientComponent },
           { path: 'addClient', component: AddClientComponent },
+          { path: 'technologies', component: TechnologieComponent },
           { path: 'evaluerLivrable/:id', component: EvaluerLivrableComponent },
           { path: 'modifierEvaluation/:id', component: ModifierEvaluationComponent },
           { path: 'edituser/:username', component: EditUtilisateurComponent },

@@ -1,6 +1,6 @@
 <div class="col-12">
     <div class="card">
-      <h3>Les sujets</h3>
+      <h3>Les discussions</h3>
       <p-table #dt1 [value]="discussions" dataKey="id" [rows]="10"  [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"  responsiveLayout="scroll">
         <ng-template pTemplate="header">
           <tr>
@@ -15,11 +15,6 @@
               </div>
             </th>
             
-            <th style="min-width: 8rem">
-              <div class="flex justify-content-between align-items-center">
-                Date dernier message
-              </div>
-            </th>
           <th ></th>
           </tr>
         </ng-template>
@@ -34,9 +29,7 @@
               {{discussion.utilisateur.firstName}} {{discussion.utilisateur.lastName}}
               
             </td>
-            <td>
-              
-            </td>
+           
            
             
             <td >
