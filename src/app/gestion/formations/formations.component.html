@@ -1,34 +1,76 @@
-<section style="background-color: #eee;">
-  <button class="btn btn-primary float-end me-5" (click)="ajouterFormation()">Ajouter une formation</button>
-  <div id="etus" class="text-center container py-5">
-    <h1><strong>Formations</strong></h1>
+<div class="col-12">
+  <div class="card">
 
+    
+    <h3>Gestion des formations</h3>
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <div class="my-2">
+                        <button pButton pRipple label="Ajouter une Formation" icon="pi pi-plus" class="p-button-success mr-2" (click)="ajouterFormation()" ></button>
+                    </div>
+                </ng-template>
+            </p-toolbar>
 
-    <div class="row">
-      <div class="col-md-3 my-3" *ngFor="let formation of listeFormation | async">
-        <div class="card">
-          <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
-            <div class="mask">
-              <div class="d-flex justify-content-start align-items-end h-100">
-                <h5><span class="badge bg-success ms-2">{{formation.id}}</span></h5>
-              </div>
+            
+              <div class="grid p-fluid">
+                <div class="col-12">
+                    <div class="card">
+                        <h5>Carousel</h5>
+                        <p-carousel [value]="listeFormation" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="carouselResponsiveOptions">
+                            <ng-template let-formation pTemplate="item">
+                                    <div class="border-round m-2 text-center p-2" style="border: 1px solid var(--surface-d)">
+                                        <div class="my-5">
+                                          <img [src]="baseUrl+formation.imageUrl" [alt]="formation.profile.libelle" class="shadow-4" width="50%" height="100"  />
+                                        </div>
+                                        <div>
+                                            <h5 class="mb-1">{{formation.profile.libelle}}</h5>
+                                            <h6 class="mt-0 mb-3"></h6>
+                                            <div class="my-5">
+                                                <button pButton pRipple icon="pi pi-info-circle" class="mr-2 p-button-rounded" pTooltip="Détails de la formation" tooltipPosition="top" (click)="openModal(formation)"></button>
+                                                <button pButton pRipple icon="pi pi-book" class="mr-2 p-button-rounded p-button-success" pTooltip="Consulter la formation" (click)="showFormation(formation.id)" tooltipPosition="top"></button>
+                                                <button pButton pRipple icon="pi pi-cog" class="p-button-rounded p-button-info"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </ng-template>
+                        </p-carousel>
+                    </div>
+                </div>
             </div>
-            <div class="hover-overlay">
-              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-            </div>
-          </div>
-          <div class="card-body">
-            <h2 class="card-title mb-3">{{formation.formationName}}</h2>
-            <p>{{formation.formationName}}</p>
-            <h6 class="mb-3" *ngFor="let module of formation.modules">{{module.moduleName}}</h6>
-
-            <button type="button" class="btn btn-warning me-1"
-              (click)="modifierFormation(formation.id)">Modifier</button>
-            <button type="button" class="btn btn-danger" (click)="supprimerFormation(formation.id)">Supprimer</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
+            
+         
   </div>
-</section>
+</div>
+
+<p-dialog header="Détails de la formation {{ (formationModal && formationModal.profile) ? formationModal.profile.libelle : '' }} " [(visible)]="visibleDetails" (onHide)="onDialogHide()" [style]="{width: '60vw'}">
+  <div *ngIf="formationModal !== null && formationModal !== undefined" class="card">
+    <p-fieldset legend="Description de la Formation" [toggleable]="false" class="line-height-3 m-0">
+      <p [style.font-family]="'Arial, sans-serif'" 
+         [style.font-size.px]="16" 
+         [style.color]="'#333'" 
+         [style.line-height]="'1.5'" 
+         [style.margin]="'10px 0'" 
+         [style.text-align]="'justify'" 
+         [style.padding.px]="10" 
+         [style.box-shadow]="'0 2px 4px rgba(0, 0, 0, 0.1)'" 
+         [style.border-radius.px]="8">
+        {{ formationModal.description }}
+      </p>
+    </p-fieldset>
+  <br>
+  <div *ngIf="formationModal && formationModal.modules">
+    <p-fieldset legend="Les modules de la formation" [toggleable]="false" class="line-height-3 m-0">
+      <p-listbox [options]="formationModal.modules" optionLabel="moduleName" [style]="{'font-family': 'Arial', 'font-size': '14px'}">
+        <ng-template let-module pTemplate="item">
+          <div class="p-d-flex p-ai-center p-py-2">
+            <div class="p-mr-2"> <i><b>Module {{ formationModal.modules.indexOf(module) + 1 }} :</b></i></div>
+            <div>{{ module.moduleName }}</div>
+          </div>
+        </ng-template>
+      </p-listbox>
+    </p-fieldset>
+  </div>
+  
+  </div>
+</p-dialog>
+

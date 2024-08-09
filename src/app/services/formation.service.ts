@@ -29,6 +29,10 @@ export class FormationService {
     );
   }
 
+  createFormation(formData: FormData): Observable<any> {
+    return this.http.post(environment.backendHost + '/createFormation', formData);
+  }
+
   public deleteFormation(id: number): Observable<void> {
     return this.http.delete<void>(
       environment.backendHost + '/deleteFormation/' + id

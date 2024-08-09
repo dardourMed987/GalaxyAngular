@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Formation } from 'src/app/model/formation';
+import { Document } from 'src/app/model/document';
+import { ModuleFormation } from 'src/app/model/module-formation';
+import { DocumentServiceService } from 'src/app/services/document-service.service';
 import { ModuleFormationService } from 'src/app/services/module-formation.service';
 
 @Component({
@@ -10,40 +12,64 @@ import { ModuleFormationService } from 'src/app/services/module-formation.servic
   styleUrls: ['./update-module.component.css'],
 })
 export class UpdateModuleComponent implements OnInit {
-  moduleForm?: FormGroup;
-  listeFormation!: Formation[];
-  id!: number;
+  moduleForm!: FormGroup;
+  documents: any[] = [];
+  pregressBar = false;
+  moduleId!: number;
 
   constructor(
-    private moduleService: ModuleFormationService,
     private fb: FormBuilder,
+    private moduleService: ModuleFormationService,
+    private documentService: DocumentServiceService,
     private router: Router,
-    private ar: ActivatedRoute
-  ) {
-    this.id = ar.snapshot.params['id'];
-  }
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.moduleService.getModuleById(this.id).subscribe((data) => {
-      this.listeFormation = data.formations;
-      this.moduleForm = this.fb.group({
-        id: this.fb.control(data.id),
-        moduleName: this.fb.control(data.moduleName, [
-          Validators.required,
-          Validators.minLength(4),
-        ]),
-        operationDate: this.fb.control(data.operationDate, [
-          Validators.required,
-        ]),
-        imageUrl: this.fb.control(data.imageUrl),
-        formations: this.fb.control(data.formations),
-      });
+    this.moduleForm = this.fb.group({
+      moduleName: this.fb.control(null, [Validators.required, Validators.minLength(3)]),
+      documents: this.fb.control([]),
+    });
+
+    this.moduleId = this.route.snapshot.params['id'];
+    console.log(this.moduleId)
+    this.loadModuleDetails();
+    this.loadDocuments();
+  }
+
+  loadModuleDetails() {
+    this.moduleService.getModuleById(this.moduleId).subscribe((module: ModuleFormation) => {
+      if (module && module.documents) {
+        this.moduleForm.patchValue({
+          moduleName: module.moduleName,
+          documents: module.documents, 
+        });
+      }
     });
   }
 
-  modifierFormation() {
-    this.moduleService
-      .updateModule(this.moduleForm?.value)
-      .subscribe(() => this.router.navigateByUrl('admin/modules'));
+  loadDocuments() {
+    this.documentService.getDocuments().subscribe((data: any) => {
+      this.documents = data;
+    });
+  }
+
+  handleSaveModule() {
+    if (this.moduleForm.valid) {
+      let module: ModuleFormation = this.moduleForm.value;
+      module.id=this.moduleId;
+      this.pregressBar = true;
+      this.moduleService.updateModule(module).subscribe({
+        next: (data: any) => {
+          alert('Module modifié avec succès!');
+          this.pregressBar = false;
+          this.router.navigateByUrl('/admin/modules');
+        },
+        error: (err: any) => {
+          this.pregressBar = false;
+          console.log(err);
+        },
+      });
+    }
   }
 }

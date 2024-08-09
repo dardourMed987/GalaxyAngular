@@ -1,32 +1,84 @@
-<section style="background-color: #eee;">
-  <button class="btn btn-primary float-end me-5" (click)="ajouterModule()">Ajouter un module</button>
-  <div id="etus" class="text-center container py-5">
-    <h1><strong>Modules</strong></h1>
+<div class="col-12">
+  <div class="card">
+    <h3>Gestion des documents</h3>
+    <p-toolbar styleClass="mb-4">
+      <ng-template pTemplate="left">
+        <div class="my-2">
+          <button pButton pRipple label="Ajouter un module" icon="pi pi-plus" class="p-button-success mr-2" (click)="ajouterModule()"></button>
+        </div>
+      </ng-template>
+    </p-toolbar>
 
-
-    <div class="row">
-      <div class="col-md-3 my-3" *ngFor="let module of listeModule | async">
+    <div class="grid p-fluid">
+      <div class="col-12">
         <div class="card">
-          <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
-            <div class="mask">
-              <div class="d-flex justify-content-start align-items-end h-100">
-                <h5><span class="badge bg-success ms-2">{{module.id}}</span></h5>
-              </div>
-            </div>
-            <div class="hover-overlay">
-              <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-            </div>
-          </div>
-          <div class="card-body">
-            <h2 class="card-title mb-3">{{module.moduleName}}</h2>
-            <h6 class="mb-3" *ngFor="let formation of module.formations">{{formation.formationName}}</h6>
+          <p-table
+  #dt2
+  [value]="listeModule"
+  dataKey="id"
+  [rows]="10"
+  [rowsPerPageOptions]="[10, 25, 50]"
+  [paginator]="true"
+  [tableStyle]="{ 'min-width': '75rem' }"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nom du module</th>
+      <th>Documents</th>
+      <th>Modifier</th>
+      <th>Supprimer</th>
+    </tr>
+  </ng-template>
 
-            <button type="button" class="btn btn-warning me-1" (click)="modifierModule(module.id)">Modifier</button>
-            <button type="button" class="btn btn-danger" (click)="supprimerModule(module.id)">Supprimer</button>
-          </div>
+  <ng-template pTemplate="body" let-module>
+    <tr>
+      <td>{{ module.moduleName }}</td>
+      <td>
+        <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info" (click)="showDocuments(module)"></button>
+      </td>
+      <td>
+        <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-info" (click)="modifierModule(module.id)"></button>
+      </td>
+      <td>
+        <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="supprimerModule(module.id)"></button>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="5">No module found.</td>
+    </tr>
+  </ng-template>
+</p-table>
+
         </div>
       </div>
     </div>
-
   </div>
-</section>
+</div>
+<p-dialog header="Liste des documents" [(visible)]="visibleDetails" [style]="{width: '50vw'}">
+  <p-table [value]="selectedModuleDocuments" dataKey="id">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nom du document</th>
+        <th>Télécharger</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-document>
+      <tr>
+        <td>{{ document.documentName }}</td>
+        <td>
+          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info" (click)="onDownloadDocument(document.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="2">Aucun document trouvé.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-dialog>

@@ -1,9 +1,10 @@
+import { Profile } from './Profile';
 import { ModuleFormation } from './module-formation';
 
 export class Formation {
   id!: number;
-  operationDate!: Date;
-  formationName!: string;
+  description!: string;
+  profile: Profile;
   imageUrl!: string;
   modules!: ModuleFormation[];
 }

@@ -1,3 +1,4 @@
+import { Document } from './document';
 import { Formation } from './formation';
 
 export class ModuleFormation {

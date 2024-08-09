@@ -25,6 +25,15 @@ import { AddClientComponent } from './gestion/client/add-client/add-client.compo
 import { DiscussionComponent } from './gestion/discussion/discussion.component';
 import { EditUtilisateurComponent } from './gestion/utilisateurs/edit-utilisateur/edit-utilisateur.component';
 import { TechnologieComponent } from './gestion/technologie/technologie.component';
+import { FormationsComponent } from './gestion/formations/formations.component';
+import { AddFormationComponent } from './gestion/formations/add-formation/add-formation.component';
+import { ModulesComponent } from './gestion/modules/modules.component';
+import { DocumentsComponent } from './gestion/documents/documents.component';
+import { AddDocumentComponent } from './gestion/documents/add-document/add-document.component';
+import { UpdateDocumentComponent } from './gestion/documents/update-document/update-document.component';
+import { AddModuleComponent } from './gestion/modules/add-module/add-module.component';
+import { UpdateModuleComponent } from './gestion/modules/update-module/update-module.component';
+import { ShowFormationComponent } from './gestion/formations/show-formation/show-formation.component';
 
 
 const routes: Routes = [
@@ -38,6 +47,8 @@ const routes: Routes = [
           { path: 'discussions', component: DiscussionComponent },
           { path: 'updatePassword', component: UpdatePasswordComponent },
           { path: 'formation', component: FormationComponent },
+          { path: 'modules', component: ModulesComponent },
+          { path: 'addformation', component: AddFormationComponent },
           { path: 'utilisateurs', component: UtilisateursComponent },
           { path: 'adduser', component: AddUtlisateurComponent },
           { path: 'role', component: RoleComponent },
@@ -57,6 +68,16 @@ const routes: Routes = [
           { path: 'evaluerLivrable/:id', component: EvaluerLivrableComponent },
           { path: 'modifierEvaluation/:id', component: ModifierEvaluationComponent },
           { path: 'edituser/:username', component: EditUtilisateurComponent },
+          { path: 'formations', component: FormationsComponent },
+          { path: 'editdocument/:id', component: UpdateDocumentComponent },
+          { path: 'documents', component: DocumentsComponent },
+          { path: 'addDocument', component: AddDocumentComponent },
+          { path: 'addmodule', component: AddModuleComponent },
+          { path: 'updatemodule/:id', component: UpdateModuleComponent },
+          { path: 'showformation/:id', component: ShowFormationComponent },
+          
+         
+          
         ],
       },
 ]

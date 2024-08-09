@@ -1,0 +1,43 @@
+<div class="grid">
+    <div class="col-12 md:col-6">
+        <div class="card p-fluid">
+            <form [formGroup]="documentForm" (ngSubmit)="onSubmit()">
+                <div class="p-fluid">
+                    <div class="p-field">
+                        <label for="documentName">Nom du Document</label>
+                        <input id="documentName" type="text" pInputText formControlName="documentName" style="width: 100%;" />
+                        <small *ngIf="documentForm.get('documentName').invalid && documentForm.get('documentName').touched" class="p-error">
+                            Le nom du module est requis et doit comporter au moins 4 caractères.
+                        </small>
+                    </div>
+                    <br>
+                    <div class="p-field">
+                        <label for="doc">Le fichier du module</label>
+                        <p-fileUpload
+                            #fileUpload
+                            mode="basic"
+                            chooseLabel="Choisir"
+                            chooseIcon="pi pi-upload"
+                            name="doc"
+                            url="https://www.primefaces.org/cdn/api/upload.php"
+                            maxFileSize="100000000"
+                            (onSelect)="onDocUpload($event)"
+                            [auto]="true"
+                            customUpload="true"
+                        ></p-fileUpload>
+                        <small *ngIf="documentForm.get('doc').invalid && documentForm.get('doc').touched" class="p-error">
+                            Le fichier est requis.
+                        </small>
+                        <p *ngIf="selectedFileName">{{ selectedFileName }}</p>
+                    </div>
+
+                    <br>
+          <p-progressBar *ngIf="uploading" mode="indeterminate" [style]="{ height: '6px' }"></p-progressBar>
+
+          <br>
+                    <button pButton type="submit" label="Ajouter le Document" [disabled]="documentForm.invalid"></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

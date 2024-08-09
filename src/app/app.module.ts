@@ -85,6 +85,17 @@ import { CalendarModule } from 'primeng/calendar';
 import { MessagesModule } from 'primeng/messages';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TechnologieComponent } from './gestion/technologie/technologie.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { CarouselModule } from 'primeng/carousel';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GalleriaModule } from 'primeng/galleria';
+import { ImageModule } from 'primeng/image';
+import { TooltipModule } from 'primeng/tooltip';
+import { FileUploadModule } from 'primeng/fileupload';
+import { AddDocumentComponent } from './gestion/documents/add-document/add-document.component';
+import { UpdateDocumentComponent } from './gestion/documents/update-document/update-document.component';
+import { ShowFormationComponent } from './gestion/formations/show-formation/show-formation.component';
+import { CardModule } from 'primeng/card';
 
 
 
@@ -122,7 +133,11 @@ import { TechnologieComponent } from './gestion/technologie/technologie.componen
         ClientComponent,
         AddClientComponent,
         DiscussionComponent,
-        TechnologieComponent
+        TechnologieComponent,
+        AddDocumentComponent,
+        UpdateDocumentComponent,
+        AddModuleComponent,
+        ShowFormationComponent
 
     ],
     imports: [
@@ -179,7 +194,18 @@ import { TechnologieComponent } from './gestion/technologie/technologie.componen
         MessagesModule,
         ProgressSpinnerModule,
         ProgressBarModule,
-        ToastModule
+        ToastModule,
+        BrowserModule,
+        CarouselModule,
+        BrowserAnimationsModule,
+        GalleriaModule,
+        ImageModule,
+        TooltipModule,
+        FileUploadModule,
+        CardModule,
+        ImageModule,
+        
+        
         
     ],
     providers: [
