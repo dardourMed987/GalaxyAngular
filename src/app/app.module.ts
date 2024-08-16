@@ -96,6 +96,11 @@ import { AddDocumentComponent } from './gestion/documents/add-document/add-docum
 import { UpdateDocumentComponent } from './gestion/documents/update-document/update-document.component';
 import { ShowFormationComponent } from './gestion/formations/show-formation/show-formation.component';
 import { CardModule } from 'primeng/card';
+import { StepperModule } from 'primeng/stepper';
+import { PowerpointViewerComponent } from './powerpoint-viewer/powerpoint-viewer.component';
+import { ShowPdfComponent } from './gestion/documents/show-pdf/show-pdf.component';
+import { VideoPlayerComponentComponent } from './gestion/documents/video-player-component/video-player-component.component';
+
 
 
 
@@ -137,7 +142,10 @@ import { CardModule } from 'primeng/card';
         AddDocumentComponent,
         UpdateDocumentComponent,
         AddModuleComponent,
-        ShowFormationComponent
+        ShowFormationComponent,
+        PowerpointViewerComponent,
+        ShowPdfComponent,
+        VideoPlayerComponentComponent
 
     ],
     imports: [
@@ -204,6 +212,9 @@ import { CardModule } from 'primeng/card';
         FileUploadModule,
         CardModule,
         ImageModule,
+        StepperModule,
+        
+        
         
         
         

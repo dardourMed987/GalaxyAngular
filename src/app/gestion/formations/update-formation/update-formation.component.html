@@ -1,21 +1,65 @@
-<div *ngIf="formationForm">
-    <form [formGroup]="formationForm" (ngSubmit)="modifierFormation()">
-        <input type="hidden" class="form-control" formControlName="id">
-
-        <div class="mb-3">
-            <label for="formationName" class="form-label">Nom de la formation</label>
-            <input type="text" class="form-control" formControlName="formationName">
-        </div>
-        <div class="mb-3">
-            <label for="operationDate" class="form-label">Date</label>
-            <input type="date" class="form-control" formControlName="operationDate">
-        </div>
-        <div class="mb-3">
-            <label for="imageUrl" class="form-label">Url de l'image</label>
-            <input type="text" class="form-control" formControlName="imageUrl">
-        </div>
-
-        <button type="reset" class="btn btn-danger">Annuler</button>
-        <button type="submit" class="btn btn-primary" [disabled]="!formationForm.valid">Modifier</button>
-    </form>
-</div>
+<div class="grid">
+    <div class="col-12 md:col-6">
+      <div class="card p-fluid">
+        <form [formGroup]="formationForm" (ngSubmit)="onSubmit()">
+          <div class="p-fluid">
+            <div class="p-field">
+              <label for="profile">Technologie</label>
+              <p-dropdown
+                [options]="profiles"
+                optionLabel="libelle"
+                placeholder="Choisissez un profil"
+                [showClear]="true"
+                formControlName="profile">
+              </p-dropdown>
+              <small *ngIf="formationForm.get('profile').invalid && formationForm.get('profile').touched" class="p-error">
+                La technologie est requise.
+              </small>
+            </div>
+  
+            <div class="p-field">
+              <label for="modules">Modules</label>
+              <p-multiSelect
+                [options]="modules"
+                optionLabel="moduleName"
+                formControlName="modules"
+                placeholder="Sélectionnez des modules"
+                [showClear]="true">
+              </p-multiSelect>
+            </div>
+  
+            <div class="p-field">
+              <label for="image">Image</label>
+              <p-fileUpload
+                #fileUpload
+                mode="basic"
+                chooseLabel="Choisir"
+                chooseIcon="pi pi-upload"
+                name="image"
+                url="https://www.primefaces.org/cdn/api/upload.php"
+                accept="image/*"
+                maxFileSize="1000000"
+                (onSelect)="onImageUpload($event)"
+                [auto]="true"
+                customUpload="true">
+              </p-fileUpload>
+              <small *ngIf="formationForm.get('image').invalid && formationForm.get('image').touched" class="p-error">
+                L'image est requise.
+              </small>
+              <p *ngIf="selectedImageName">{{ selectedImageName }}</p>
+            </div>
+  
+            <div class="p-field">
+              <label for="description">Description</label>
+              <textarea id="description" pInputTextarea formControlName="description" rows="5" style="width: 100%;"></textarea>
+              <small *ngIf="formationForm.get('description').invalid && formationForm.get('description').touched" class="p-error">
+                La description est requise et doit comporter au moins 10 caractères.
+              </small>
+            </div>
+            <button pButton type="submit" label="Mettre à jour la Formation" [disabled]="formationForm.invalid"></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

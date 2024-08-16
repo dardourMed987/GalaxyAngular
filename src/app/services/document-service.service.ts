@@ -1,15 +1,21 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Document } from '../model/document';
+import { AuthService } from './auth.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentServiceService {
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient,
+    private authService:AuthService,
+    
+  ) { }
 
 
   createDocuement(formData: FormData): Observable<any> {
@@ -20,8 +26,9 @@ export class DocumentServiceService {
     return this.http.get<Document[]>(environment.backendHost + '/documents');
   }
 
-  downloadDocument(id: number) {
-    this.http.get(environment.backendHost+`/documents/download/${id}`, { responseType: 'blob' })
+  downloadDocument(id: number) : Observable<Blob>  {
+    return this.http.get(environment.backendHost + `/documents/download/${id}`, { responseType: 'blob' });
+    /* this.http.get(environment.backendHost+`/documents/download/${id}`, { responseType: 'blob' })
       .subscribe(response => {
         const url = window.URL.createObjectURL(response);
         const a = document.createElement('a');
@@ -29,8 +36,12 @@ export class DocumentServiceService {
         a.download = `document_${id}`;
         a.click();
         window.URL.revokeObjectURL(url);
-      });
+      });*/
   }
+
+      getDocumentUrl(id: number): Observable<Blob> {
+        return this.http.get<Blob>(`${environment.backendHost}/documents/download/${id}`, { responseType: 'blob' as 'json' });
+      }
 
   public deleteDocument(id: number): Observable<void> {
     return this.http.delete<void>(
@@ -48,5 +59,20 @@ export class DocumentServiceService {
     return this.http.get<Document>(environment.backendHost + '/documents/' + id);
   }
 
+  getVideoUrl(id: number): Observable<Blob> {
+    
+    return this.http.get(`${environment.backendHost}/documents/download/${id}`, {
+      
+      responseType: 'blob'
+    });
+  }
+
+  downloadDocumentPdf(id: number): Observable<Blob> {
+    return this.http.get(environment.backendHost + `/documents/download/${id}`, { responseType: 'blob' });
+  }
+
+ 
 
 }
+
+

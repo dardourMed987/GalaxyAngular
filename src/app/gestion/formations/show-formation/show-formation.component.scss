@@ -8,3 +8,29 @@
   margin-top: 0.2cm !important;
   margin-left: 1cm !important;
 }
+/* Assurez-vous que les icônes et les boutons sont correctement alignés */
+.text-center {
+  text-align: center;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.m-2 {
+  margin: .5rem;
+}
+
+.mt-2 {
+  margin-top: .5rem;
+}
+
+/* Styles pour les boutons */
+.p-button {
+  display: block;
+  margin: 0 auto;
+}

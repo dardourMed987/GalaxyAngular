@@ -34,6 +34,8 @@ import { UpdateDocumentComponent } from './gestion/documents/update-document/upd
 import { AddModuleComponent } from './gestion/modules/add-module/add-module.component';
 import { UpdateModuleComponent } from './gestion/modules/update-module/update-module.component';
 import { ShowFormationComponent } from './gestion/formations/show-formation/show-formation.component';
+import { UpdateFormationComponent } from './gestion/formations/update-formation/update-formation.component';
+import { ShowPdfComponent } from './gestion/documents/show-pdf/show-pdf.component';
 
 
 const routes: Routes = [
@@ -75,6 +77,9 @@ const routes: Routes = [
           { path: 'addmodule', component: AddModuleComponent },
           { path: 'updatemodule/:id', component: UpdateModuleComponent },
           { path: 'showformation/:id', component: ShowFormationComponent },
+          { path: 'updateformation/:id', component: UpdateFormationComponent },
+          { path: 'show-pdf/:id', component: ShowPdfComponent },
+          { path: 'video-player/:id', component: ShowPdfComponent },
           
          
           

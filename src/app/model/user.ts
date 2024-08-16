@@ -1,3 +1,4 @@
+import { Formation } from "./formation";
 import { Profile } from "./Profile";
 
 export class User {
@@ -10,6 +11,7 @@ export class User {
   public active: boolean;
   public roles: any;
   public profile!:Profile;
+  public formations!: Formation[];
 
   constructor() {
     this.userId = '';

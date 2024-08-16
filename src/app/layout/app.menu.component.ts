@@ -36,9 +36,13 @@ export class AppMenuComponent implements OnInit {
             menuItemsProjets.push({ label: 'Sujets supprimés', icon: 'pi pi-trash', routerLink: ['/admin/sujetSupp'], badge: 'NEW' });
         }
 
-        const menuItemsGestion=[{ label: 'Formations', icon: 'pi pi-book', routerLink: ['/admin/formations'],badge: 'NEW' },
-                                { label: 'Modules', icon: 'pi pi-folder', routerLink: ['/admin/modules'],badge: 'NEW' },
-                                { label: 'Documents', icon: 'pi pi-file', routerLink: ['/admin/documents'],badge: 'NEW' }];
+        const menuItemsGestion=[{ label: 'Formations', icon: 'pi pi-book', routerLink: ['/admin/formations'],badge: 'NEW' }]
+
+        if(isAdmin || isFormateur)
+        {
+            menuItemsGestion.push( { label: 'Modules', icon: 'pi pi-folder', routerLink: ['/admin/modules'],badge: 'NEW' });
+            menuItemsGestion.push({ label: 'Documents', icon: 'pi pi-file', routerLink: ['/admin/documents'],badge: 'NEW' });   
+        }
 
         if (isAdmin) {
             menuItemsGestion.push({ label: 'Utilisateurs', icon: 'pi pi-users', routerLink: ['/admin/utilisateurs'], badge: 'NEW' });
@@ -57,7 +61,7 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
-                label: 'Gestion', 
+                label: isFormateur || isAdmin ? 'Gestion' : 'Apprentissage',
                 items:menuItemsGestion
             },
             {

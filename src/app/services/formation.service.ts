@@ -22,6 +22,12 @@ export class FormationService {
     );
   }
 
+  public getFormationByUsername(username: String) {
+    return this.http.get<any>(
+      environment.backendHost + '/formationsByUsername/' + username
+    );
+  }
+
   public addFormation(formation: Formation): Observable<Formation> {
     return this.http.post<Formation>(
       environment.backendHost + '/addFormation',
@@ -44,5 +50,9 @@ export class FormationService {
       environment.backendHost + '/updateFormation',
       formation
     );
+  }
+
+  public updateFormation2(id: number, formData: FormData): Observable<any> {
+    return this.http.put(environment.backendHost +'/updateFormation/'+id, formData);
   }
 }
